@@ -34,6 +34,7 @@ def test_dreambooth(output_dir, load_model, prompt, num_inference_steps, guidanc
     return image
 
 def test_lora(model_dir, load_model, output_dir, prompt, num_inference_steps, guidance_scale):
+    global pipe
     if load_model:
         pipe = StableDiffusionPipeline.from_pretrained(model_dir, safety_checker=None, torch_dtype=torch.float16).to("cuda")
         pipe.enable_xformers_memory_efficient_attention()
