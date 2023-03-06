@@ -584,10 +584,10 @@ def launch():
                             text = gr.Textbox(label="Enter your prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
                             steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=1)
                             scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
-                            checkbox = gr.Checkbox(label="Load Model")
+                            checkbox = gr.Checkbox(label="Load Model", value=True)
                             btn_test_dreambooth = gr.Button("Generate image")
                             text.submit(test_dreambooth, inputs=[output_dir, text, steps, scale], outputs=image)
-                            btn_test_dreambooth.click(test_dreambooth, inputs=[output_dir, checkbox.value, text, steps, scale], outputs=image) 
+                            btn_test_dreambooth.click(test_dreambooth, inputs=[output_dir, checkbox, text, steps, scale], outputs=image) 
             with gr.Tab("Test LoRA"):
                 with gr.Group():
                     with gr.Row():
@@ -599,10 +599,10 @@ def launch():
                             text = gr.Textbox(label="Enter your prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
                             steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=1)
                             scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
-                            checkbox = gr.Checkbox(label="Load Model")
+                            checkbox = gr.Checkbox(label="Load Model", value=True)
                             btn_test_lora = gr.Button("Generate image")
                             text.submit(test_lora, inputs=[model_dir, output_dir, text, steps, scale], outputs=image)
-                            btn_test_lora.click(test_lora, inputs=[model_dir, checkbox.value, output_dir, text, steps, scale], outputs=image) 
+                            btn_test_lora.click(test_lora, inputs=[model_dir, checkbox, output_dir, text, steps, scale], outputs=image) 
         with gr.Tab("Convert"):
             with gr.Tab("Convert Dreambooth"):
                 with gr.Group():
