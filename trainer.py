@@ -4,7 +4,8 @@ from subprocess import getoutput
 from diffusers import StableDiffusionPipeline
 from gradio import strings
 
-global pipe = None
+global pipe
+pipe = None
 
 def run_live(command):
   with os.popen(command) as pipe:
