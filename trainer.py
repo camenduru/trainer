@@ -4,9 +4,6 @@ from subprocess import getoutput
 from diffusers import StableDiffusionPipeline
 from gradio import strings
 
-global pipe
-pipe = None
-
 def run_live(command):
   with os.popen(command) as pipe:
     for line in pipe:
@@ -26,7 +23,10 @@ def timeout_test(second):
     msg = "🥳"
     return msg
 
+pipe = None
+
 def test_dreambooth(output_dir, load_model, prompt, num_inference_steps, guidance_scale):
+    global pipe
     if load_model:
         pipe = StableDiffusionPipeline.from_pretrained(output_dir, safety_checker=None).to("cuda")
         pipe.enable_xformers_memory_efficient_attention()
