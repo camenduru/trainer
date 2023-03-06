@@ -25,21 +25,21 @@ def timeout_test(second):
 
 pipe = None
 
-def test_dreambooth(output_dir, load_model, prompt, num_inference_steps, guidance_scale):
+def test_dreambooth(output_dir, load_model, prompt, negative_prompt, num_inference_steps, guidance_scale):
     global pipe
     if load_model:
         pipe = StableDiffusionPipeline.from_pretrained(output_dir, safety_checker=None, torch_dtype=torch.float16).to("cuda")
         pipe.enable_xformers_memory_efficient_attention()
-    image = pipe(prompt, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale).images[0]
+    image = pipe(prompt, negative_prompt=negative_prompt, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale).images[0]
     return image
 
-def test_lora(model_dir, load_model, output_dir, prompt, num_inference_steps, guidance_scale):
+def test_lora(model_dir, load_model, output_dir, prompt, negative_prompt, num_inference_steps, guidance_scale):
     global pipe
     if load_model:
         pipe = StableDiffusionPipeline.from_pretrained(model_dir, safety_checker=None, torch_dtype=torch.float16).to("cuda")
         pipe.enable_xformers_memory_efficient_attention()
         pipe.unet.load_attn_procs(output_dir)
-    image = pipe(prompt, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale).images[0]
+    image = pipe(prompt, negative_prompt=negative_prompt, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale).images[0]
     return image
 
 def clear_out_text():
@@ -585,13 +585,13 @@ def launch():
                             image = gr.Image(show_label=False)
                         with gr.Box():
                             output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/trainer/diffusers/dreambooth/output_dir")
-                            text = gr.Textbox(label="Enter your prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
+                            prompt = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
+                            negative_prompt = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
                             steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=1)
                             scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
                             checkbox = gr.Checkbox(label="Load Model", value=True)
                             btn_test_dreambooth = gr.Button("Generate image")
-                            text.submit(test_dreambooth, inputs=[output_dir, text, steps, scale], outputs=image)
-                            btn_test_dreambooth.click(test_dreambooth, inputs=[output_dir, checkbox, text, steps, scale], outputs=image) 
+                            btn_test_dreambooth.click(test_dreambooth, inputs=[output_dir, checkbox, prompt, negative_prompt, steps, scale], outputs=image) 
             with gr.Tab("Test LoRA"):
                 with gr.Group():
                     with gr.Row():
@@ -600,13 +600,13 @@ def launch():
                         with gr.Box():
                             model_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/model")
                             output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/trainer/diffusers/lora/output_dir")
-                            text = gr.Textbox(label="Enter your prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
+                            prompt = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
+                            negative_prompt = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
                             steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=1)
                             scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
                             checkbox = gr.Checkbox(label="Load Model", value=True)
                             btn_test_lora = gr.Button("Generate image")
-                            text.submit(test_lora, inputs=[model_dir, output_dir, text, steps, scale], outputs=image)
-                            btn_test_lora.click(test_lora, inputs=[model_dir, checkbox, output_dir, text, steps, scale], outputs=image) 
+                            btn_test_lora.click(test_lora, inputs=[model_dir, checkbox, output_dir, prompt, negative_prompt, steps, scale], outputs=image) 
         with gr.Tab("Convert"):
             with gr.Tab("Convert Dreambooth"):
                 with gr.Group():
