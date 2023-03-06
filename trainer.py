@@ -1,4 +1,4 @@
-import os, time
+import os, time, torch
 import gradio as gr
 from subprocess import getoutput
 from diffusers import StableDiffusionPipeline
@@ -28,14 +28,14 @@ pipe = None
 def test_dreambooth(output_dir, load_model, prompt, num_inference_steps, guidance_scale):
     global pipe
     if load_model:
-        pipe = StableDiffusionPipeline.from_pretrained(output_dir, safety_checker=None).to("cuda")
+        pipe = StableDiffusionPipeline.from_pretrained(output_dir, safety_checker=None, torch_dtype=torch.float16).to("cuda")
         pipe.enable_xformers_memory_efficient_attention()
     image = pipe(prompt, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale).images[0]
     return image
 
 def test_lora(model_dir, load_model, output_dir, prompt, num_inference_steps, guidance_scale):
     if load_model:
-        pipe = StableDiffusionPipeline.from_pretrained(model_dir, safety_checker=None).to("cuda")
+        pipe = StableDiffusionPipeline.from_pretrained(model_dir, safety_checker=None, torch_dtype=torch.float16).to("cuda")
         pipe.enable_xformers_memory_efficient_attention()
         pipe.unet.load_attn_procs(output_dir)
     image = pipe(prompt, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale).images[0]
