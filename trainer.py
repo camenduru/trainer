@@ -52,7 +52,7 @@ def launch():
                         gr.Markdown(
                         """
                         ```py
-                        --pretrained_model_name_or_path="ckpt/sd15"  \\
+                        --pretrained_model_name_or_path="/content/model"  \\
                         --instance_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
                         --output_dir="/content/trainer/diffusers/dreambooth/output_dir" \\
                         --learning_rate=5e-6 \\
@@ -233,7 +233,7 @@ def launch():
                         ```
                         """)
                     train_dreambooth_command = """python -u /content/trainer/diffusers/dreambooth/train_dreambooth.py \\
-                --pretrained_model_name_or_path="ckpt/sd15"  \\
+                --pretrained_model_name_or_path="/content/model"  \\
                 --instance_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
                 --output_dir="/content/trainer/diffusers/dreambooth/output_dir" \\
                 --learning_rate=5e-6 \\
@@ -265,7 +265,7 @@ def launch():
                         gr.Markdown(
                         """
                         ```py
-                        --pretrained_model_name_or_path="ckpt/sd15"  \\
+                        --pretrained_model_name_or_path="/content/model"  \\
                         --instance_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
                         --output_dir="/content/trainer/diffusers/lora/output_dir" \\
                         --learning_rate=5e-6 \\
@@ -444,7 +444,7 @@ def launch():
                         ```
                         """)
                     train_lora_command = """python -u /content/trainer/diffusers/lora/train_dreambooth_lora.py \\
-                --pretrained_model_name_or_path="ckpt/sd15"  \\
+                --pretrained_model_name_or_path="/content/model"  \\
                 --instance_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
                 --output_dir="/content/trainer/diffusers/lora/output_dir" \\
                 --learning_rate=5e-6 \\
@@ -590,7 +590,7 @@ def launch():
                         with gr.Box():
                             image = gr.Image(show_label=False)
                         with gr.Box():
-                            model_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="ckpt/sd15")
+                            model_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/model")
                             output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/trainer/diffusers/lora/output_dir")
                             text = gr.Textbox(label="Enter your prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
                             steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=1)
