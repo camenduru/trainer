@@ -672,7 +672,7 @@ def launch():
                         rm_lora_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Remove Lora Output Directory")
                         btn_run_static.click(run_static, inputs=rm_lora, outputs=rm_lora_out_text, show_progress=False)
-    trainer.queue().launch(debug=True, share=True, inline=False)
+    trainer.launch(debug=True, share=True, inline=False)
 
 if __name__ == "__main__":
     launch()
