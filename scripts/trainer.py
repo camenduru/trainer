@@ -1,6 +1,5 @@
 import os, time
 import gradio as gr
-from modules import script_callbacks
 from subprocess import getoutput
 from diffusers import StableDiffusionPipeline
 
@@ -39,7 +38,7 @@ def test_lora(model_dir, output_dir, prompt, num_inference_steps, guidance_scale
 def clear_out_text():
     return ""
 
-def on_ui_tabs():     
+def launch():     
     with gr.Blocks() as trainer:
         with gr.Tab("Training"):
             with gr.Tab("Train Dreambooth"):
@@ -672,4 +671,4 @@ def on_ui_tabs():
                         btn_run_static = gr.Button("Remove Lora Output Directory")
                         btn_run_static.click(run_static, inputs=rm_lora, outputs=rm_lora_out_text, show_progress=False)
     return (trainer, "Trainer", "trainer"),
-script_callbacks.on_ui_tabs(on_ui_tabs)
+    trainer.queue().launch(debug=True, share=True, inline=False)
