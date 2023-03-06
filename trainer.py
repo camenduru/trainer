@@ -2,6 +2,7 @@ import os, time
 import gradio as gr
 from subprocess import getoutput
 from diffusers import StableDiffusionPipeline
+from gradio import strings
 
 def run_live(command):
   with os.popen(command) as pipe:
@@ -40,7 +41,9 @@ def clear_out_text():
 
 trainer = gr.Blocks()
 
-def launch():     
+def launch():
+    colab_url = os.getenv('colab_url')
+    strings.en["SHARE_LINK_MESSAGE"] = f"WebUI Colab URL: {colab_url}"
     with trainer:
         with gr.Tab("Training"):
             with gr.Tab("Train Dreambooth"):
