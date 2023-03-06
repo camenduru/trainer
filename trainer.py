@@ -258,7 +258,7 @@ def launch():
                     dreambooth_command = gr.Textbox(show_label=False, lines=23, value=train_dreambooth_command)
                     train_dreambooth_out_text = gr.Textbox(show_label=False)
                     btn_train_dreambooth_run_live = gr.Button("Train Dreambooth")
-                    btn_train_dreambooth_run_live.click(run_static, inputs=dreambooth_command, outputs=train_dreambooth_out_text, show_progress=False)
+                    btn_train_dreambooth_run_live.click(run_live, inputs=dreambooth_command, outputs=train_dreambooth_out_text, show_progress=False)
             with gr.Tab("Train LoRA"):
                 with gr.Box():
                     with gr.Accordion("Train Lora Common Arguments", open=False):
@@ -462,7 +462,7 @@ def launch():
                     lora_command = gr.Textbox(show_label=False, lines=16, value=train_lora_command)
                     train_lora_out_text = gr.Textbox(show_label=False)
                     btn_train_lora_run_live = gr.Button("Train Lora")
-                    btn_train_lora_run_live.click(run_static, inputs=lora_command, outputs=train_lora_out_text, show_progress=False)
+                    btn_train_lora_run_live.click(run_live, inputs=lora_command, outputs=train_lora_out_text, show_progress=False)
             with gr.Tab("Train LoRA for WebUI"):
                 with gr.Tab("Tag Images"):
                     with gr.Box():
@@ -488,7 +488,7 @@ def launch():
                         tag_lora_webui_command = gr.Textbox(show_label=False, lines=16, value=train_tag_lora_webui_command)
                         train_tag_lora_webui_out_text = gr.Textbox(show_label=False)
                         btn_train_tag_lora_webui_run_live = gr.Button("Train Lora")
-                        btn_train_tag_lora_webui_run_live.click(run_static, inputs=tag_lora_webui_command, outputs=train_tag_lora_webui_out_text, show_progress=False)
+                        btn_train_tag_lora_webui_run_live.click(run_live, inputs=tag_lora_webui_command, outputs=train_tag_lora_webui_out_text, show_progress=False)
                 with gr.Tab("Merge Tags"):
                     with gr.Box():
                         with gr.Accordion("Train Lora WebUI Merge Tags Common Arguments", open=False):
@@ -507,7 +507,7 @@ def launch():
                         merge_lora_webui_command = gr.Textbox(show_label=False, lines=16, value=train_merge_lora_webui_command)
                         train_merge_lora_webui_out_text = gr.Textbox(show_label=False)
                         btn_train_merge_lora_webui_run_live = gr.Button("Train Lora")
-                        btn_train_merge_lora_webui_run_live.click(run_static, inputs=merge_lora_webui_command, outputs=train_merge_lora_webui_out_text, show_progress=False)
+                        btn_train_merge_lora_webui_run_live.click(run_live, inputs=merge_lora_webui_command, outputs=train_merge_lora_webui_out_text, show_progress=False)
                 with gr.Tab("Prepare Latents"):
                     with gr.Box():
                         with gr.Accordion("Train Lora WebUI Merge Tags Common Arguments", open=False):
@@ -540,7 +540,7 @@ def launch():
                         prepare_lora_webui_command = gr.Textbox(show_label=False, lines=16, value=train_prepare_lora_webui_command)
                         train_prepare_lora_webui_out_text = gr.Textbox(show_label=False)
                         btn_train_prepare_lora_webui_run_live = gr.Button("Train Lora")
-                        btn_train_prepare_lora_webui_run_live.click(run_static, inputs=prepare_lora_webui_command, outputs=train_prepare_lora_webui_out_text, show_progress=False)
+                        btn_train_prepare_lora_webui_run_live.click(run_live, inputs=prepare_lora_webui_command, outputs=train_prepare_lora_webui_out_text, show_progress=False)
                 with gr.Tab("Train"):
                     with gr.Box():
                         with gr.Accordion("Train Lora WebUI Common Arguments", open=False):
@@ -569,7 +569,7 @@ def launch():
                         lora_webui_command = gr.Textbox(show_label=False, lines=16, value=train_lora_webui_command)
                         train_lora_webui_out_text = gr.Textbox(show_label=False)
                         btn_train_lora_webui_run_live = gr.Button("Train Lora")
-                        btn_train_lora_webui_run_live.click(run_static, inputs=lora_webui_command, outputs=train_lora_webui_out_text, show_progress=False)
+                        btn_train_lora_webui_run_live.click(run_live, inputs=lora_webui_command, outputs=train_lora_webui_out_text, show_progress=False)
         with gr.Tab("Test"):
             with gr.Tab("Test Dreambooth"):
                 with gr.Group():
@@ -629,7 +629,7 @@ def launch():
                         convert_dreambooth = gr.Textbox(show_label=False, lines=3, value=convert_command)
                         convert_dreambooth_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Convert Diffusers to Original Stable Diffusion")
-                        btn_run_static.click(run_static, inputs=convert_dreambooth, outputs=convert_dreambooth_out_text, show_progress=False)
+                        btn_run_static.click(run_live, inputs=convert_dreambooth, outputs=convert_dreambooth_out_text, show_progress=False)
                 with gr.Group():
                     with gr.Box():
                         with gr.Accordion("Remove Dreambooth Output Directory", open=False):
@@ -643,7 +643,7 @@ def launch():
                         rm_dreambooth = gr.Textbox(show_label=False, lines=1, value=rm_dreambooth_command)
                         rm_dreambooth_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Remove Dreambooth Output Directory")
-                        btn_run_static.click(run_static, inputs=rm_dreambooth, outputs=rm_dreambooth_out_text, show_progress=False)
+                        btn_run_static.click(run_live, inputs=rm_dreambooth, outputs=rm_dreambooth_out_text, show_progress=False)
             with gr.Tab("Convert Lora"):
                 with gr.Group():
                     with gr.Box():
@@ -660,7 +660,7 @@ def launch():
                         cp_lora = gr.Textbox(show_label=False, lines=2, value=cp_lora_command)
                         cp_lora_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Copy Lora to Additional Network")
-                        btn_run_static.click(run_static, inputs=cp_lora, outputs=cp_lora_out_text, show_progress=False)
+                        btn_run_static.click(run_live, inputs=cp_lora, outputs=cp_lora_out_text, show_progress=False)
                 with gr.Group():
                     with gr.Box():
                         with gr.Accordion("Remove Lora Output Directory", open=False):
@@ -674,8 +674,8 @@ def launch():
                         rm_lora = gr.Textbox(show_label=False, lines=1, value=rm_lora_command)
                         rm_lora_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Remove Lora Output Directory")
-                        btn_run_static.click(run_static, inputs=rm_lora, outputs=rm_lora_out_text, show_progress=False)
-    trainer.launch(debug=True, share=True, inline=False)
+                        btn_run_static.click(run_live, inputs=rm_lora, outputs=rm_lora_out_text, show_progress=False)
+    trainer.queue().launch(debug=True, share=True, inline=False)
 
 if __name__ == "__main__":
     launch()
