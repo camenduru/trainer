@@ -42,8 +42,9 @@ def clear_out_text():
 trainer = gr.Blocks()
 
 def launch():
-    colab_url = os.getenv('colab_url')
-    strings.en["SHARE_LINK_MESSAGE"] = f"WebUI Colab URL: {colab_url}"
+    # colab_url = os.getenv('colab_url')
+    # strings.en["SHARE_LINK_MESSAGE"] = f"WebUI Colab URL: {colab_url}"
+    strings.en["SHARE_LINK_MESSAGE"] = f"😊"
     with trainer:
         with gr.Tab("Training"):
             with gr.Tab("Train Dreambooth"):
@@ -478,7 +479,7 @@ def launch():
                             --caption_extension .txt \\
                             ```
                             """)                        
-                        train_tag_lora_webui_command = """python -u /content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/sd-scripts/finetune/tag_images_by_wd14_tagger.py \\
+                        train_tag_lora_webui_command = """python -u /content/trainer/sd-scripts/finetune/tag_images_by_wd14_tagger.py \\
                     /content/drive/MyDrive/AI/training/parkminyoung \\
                     --repo_id SmilingWolf/wd-v1-4-convnext-tagger-v2 \\
                     --model_dir wd14_tagger_model \\
@@ -500,7 +501,7 @@ def launch():
                             --caption_extension .txt \\
                             ```
                             """)                        
-                        train_merge_lora_webui_command = """python -u /content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/sd-scripts/finetune/merge_dd_tags_to_metadata.py \\
+                        train_merge_lora_webui_command = """python -u /content/trainer/sd-scripts/finetune/merge_dd_tags_to_metadata.py \\
                     /content/drive/MyDrive/AI/training/parkminyoung \\
                     /content/drive/MyDrive/AI/training/parkminyoung/parkminyoung.json \\
                     --caption_extension .txt"""
@@ -517,7 +518,7 @@ def launch():
                             /content/drive/MyDrive/AI/training/parkminyoung \\
                             /content/drive/MyDrive/AI/training/parkminyoung/parkminyoung.json \\
                             /content/drive/MyDrive/AI/training/parkminyoung/parkminyoung-latents.json \\
-                            /content/ACertainty \\
+                            /content/model/model.ckpt \\
                             --batch_size 1 \\
                             --max_resolution 512,512 \\
                             --min_bucket_reso 256 \\
@@ -526,11 +527,11 @@ def launch():
                             --mixed_precision no \\
                             ```
                             """)                        
-                        train_prepare_lora_webui_command = """python -u /content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/sd-scripts/finetune/prepare_buckets_latents.py \\
+                        train_prepare_lora_webui_command = """python -u /content/trainer/sd-scripts/finetune/prepare_buckets_latents.py \\
                     /content/drive/MyDrive/AI/training/parkminyoung \\
                     /content/drive/MyDrive/AI/training/parkminyoung/parkminyoung.json \\
                     /content/drive/MyDrive/AI/training/parkminyoung/parkminyoung-latents.json \\
-                    /content/ACertainty \\
+                    /content/model/model.ckpt \\
                     --batch_size 1 \\
                     --max_resolution 512,512 \\
                     --min_bucket_reso 256 \\
@@ -547,7 +548,7 @@ def launch():
                             gr.Markdown(
                             """
                             ```py
-                            --pretrained_model_name_or_path /content/ACertainty \\
+                            --pretrained_model_name_or_path /content/model/model.ckpt \\
                             --train_data_dir /content/drive/MyDrive/AI/training/parkminyoung \\
                             --in_json /content/drive/MyDrive/AI/training/parkminyoung/parkminyoung-latents.json \\
                             --output_dir /content/trained \\
@@ -557,8 +558,8 @@ def launch():
                             --network_module networks.lora \\
                             ```
                             """)                        
-                        train_lora_webui_command = """python -u /content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/sd-scripts/train_network.py \\
-                    --pretrained_model_name_or_path /content/ACertainty \\
+                        train_lora_webui_command = """python -u /content/trainer/sd-scripts/train_network.py \\
+                    --pretrained_model_name_or_path /content/model/model.ckpt \\
                     --train_data_dir /content/drive/MyDrive/AI/training/parkminyoung \\
                     --in_json /content/drive/MyDrive/AI/training/parkminyoung/parkminyoung-latents.json \\
                     --output_dir /content/trained \\
