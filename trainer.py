@@ -51,7 +51,7 @@ def launch():
                         ```py
                         --pretrained_model_name_or_path="ckpt/sd15"  \\
                         --instance_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
-                        --output_dir="/content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/training/dreambooth/output_dir" \\
+                        --output_dir="/content/trainer/diffusers/dreambooth/output_dir" \\
                         --learning_rate=5e-6 \\
                         --max_train_steps=650 \\
                         --instance_prompt="parkminyoung" \\
@@ -65,7 +65,7 @@ def launch():
                         --enable_xformers_memory_efficient_attention \\
                         --use_8bit_adam \\
                         --with_prior_preservation \\
-                        --class_data_dir="/content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/training/dreambooth/class_data_dir" \\
+                        --class_data_dir="/content/trainer/diffusers/dreambooth/class_data_dir" \\
                         --prior_loss_weight=1.0 \\
                         --sample_batch_size=2 \\
                         --class_prompt="person" \\
@@ -229,10 +229,10 @@ def launch():
                                                 enerated/torch.optim.Optimizer.zero_grad.html
                         ```
                         """)
-                    train_dreambooth_command = """python -u /content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/training/dreambooth/train_dreambooth.py \\
+                    train_dreambooth_command = """python -u /content/trainer/diffusers/dreambooth/train_dreambooth.py \\
                 --pretrained_model_name_or_path="ckpt/sd15"  \\
                 --instance_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
-                --output_dir="/content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/training/dreambooth/output_dir" \\
+                --output_dir="/content/trainer/diffusers/dreambooth/output_dir" \\
                 --learning_rate=5e-6 \\
                 --max_train_steps=650 \\
                 --instance_prompt="parkminyoung" \\
@@ -246,7 +246,7 @@ def launch():
                 --enable_xformers_memory_efficient_attention \\
                 --use_8bit_adam \\
                 --with_prior_preservation \\
-                --class_data_dir="/content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/training/dreambooth/class_data_dir" \\
+                --class_data_dir="/content/trainer/diffusers/dreambooth/class_data_dir" \\
                 --prior_loss_weight=1.0 \\
                 --sample_batch_size=2 \\
                 --class_prompt="person" \\
@@ -264,7 +264,7 @@ def launch():
                         ```py
                         --pretrained_model_name_or_path="ckpt/sd15"  \\
                         --instance_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
-                        --output_dir="/content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/training/lora/output_dir" \\
+                        --output_dir="/content/trainer/diffusers/lora/output_dir" \\
                         --learning_rate=5e-6 \\
                         --max_train_steps=650 \\
                         --instance_prompt="parkminyoung" \\
@@ -278,7 +278,7 @@ def launch():
                         --enable_xformers_memory_efficient_attention \\
                         --use_8bit_adam \n
                         --with_prior_preservation \\
-                        --class_data_dir="/content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/training/lora/class_data_dir" \\
+                        --class_data_dir="/content/trainer/diffusers/lora/class_data_dir" \\
                         --prior_loss_weight=1.0 \\
                         --sample_batch_size=2 \\
                         --class_prompt="person" \\
@@ -440,10 +440,10 @@ def launch():
                         Whether or not to use xformers.
                         ```
                         """)
-                    train_lora_command = """python -u /content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/training/lora/train_dreambooth_lora.py \\
+                    train_lora_command = """python -u /content/trainer/diffusers/lora/train_dreambooth_lora.py \\
                 --pretrained_model_name_or_path="ckpt/sd15"  \\
                 --instance_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
-                --output_dir="/content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/training/lora/output_dir" \\
+                --output_dir="/content/trainer/diffusers/lora/output_dir" \\
                 --learning_rate=5e-6 \\
                 --max_train_steps=650 \\
                 --instance_prompt="parkminyoung" \\
@@ -574,7 +574,7 @@ def launch():
                         with gr.Box():
                             image = gr.Image(show_label=False)
                         with gr.Box():
-                            output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/training/dreambooth/output_dir")
+                            output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/trainer/diffusers/dreambooth/output_dir")
                             text = gr.Textbox(label="Enter your prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
                             steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=1)
                             scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
@@ -588,7 +588,7 @@ def launch():
                             image = gr.Image(show_label=False)
                         with gr.Box():
                             model_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="ckpt/sd15")
-                            output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/training/lora/output_dir")
+                            output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/trainer/diffusers/lora/output_dir")
                             text = gr.Textbox(label="Enter your prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
                             steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=1)
                             scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
@@ -603,7 +603,7 @@ def launch():
                             gr.Markdown(
                             """
                             ```py
-                            --model_path /content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/training/dreambooth/output_dir \\
+                            --model_path /content/trainer/diffusers/dreambooth/output_dir \\
                             --checkpoint_path /content/stable-diffusion-webui/models/Stable-diffusion/parkminyoung.ckpt
                             ```
                             """)
@@ -620,8 +620,8 @@ def launch():
                             --use_safetensors     Save weights use safetensors, default is ckpt.
                             ```
                             """)
-                        convert_command = """python /content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/training/dreambooth/convert_diffusers_to_original_stable_diffusion.py \\
-                --model_path /content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/training/dreambooth/output_dir \\
+                        convert_command = """python /content/trainer/diffusers/dreambooth/convert_diffusers_to_original_stable_diffusion.py \\
+                --model_path /content/trainer/diffusers/dreambooth/output_dir \\
                 --checkpoint_path /content/stable-diffusion-webui/models/Stable-diffusion/parkminyoung.ckpt"""
                         convert_dreambooth = gr.Textbox(show_label=False, lines=3, value=convert_command)
                         convert_dreambooth_out_text = gr.Textbox(show_label=False)
@@ -633,10 +633,10 @@ def launch():
                             gr.Markdown(
                             """
                             ```py
-                            rm -rf /content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/training/dreambooth/output_dir/*
+                            rm -rf /content/trainer/diffusers/dreambooth/output_dir/*
                             ```
                             """)
-                        rm_dreambooth_command = """rm -rf /content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/training/dreambooth/output_dir/*"""
+                        rm_dreambooth_command = """rm -rf /content/trainer/diffusers/dreambooth/output_dir/*"""
                         rm_dreambooth = gr.Textbox(show_label=False, lines=1, value=rm_dreambooth_command)
                         rm_dreambooth_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Remove Dreambooth Output Directory")
@@ -648,11 +648,11 @@ def launch():
                             gr.Markdown(
                             """
                             ```py
-                            cp /content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/training/lora/output_dir/pytorch_lora_weights.safetensors \\
+                            cp /content/trainer/diffusers/lora/output_dir/pytorch_lora_weights.safetensors \\
                             /content/stable-diffusion-webui/extensions/sd-webui-additional-networks/models/lora/parkminyoung.safetensors
                             ```
                             """)
-                        cp_lora_command = """cp /content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/training/lora/output_dir/pytorch_lora_weights.safetensors \\
+                        cp_lora_command = """cp /content/trainer/diffusers/lora/output_dir/pytorch_lora_weights.safetensors \\
             /content/stable-diffusion-webui/extensions/sd-webui-additional-networks/models/lora/parkminyoung.safetensors"""
                         cp_lora = gr.Textbox(show_label=False, lines=2, value=cp_lora_command)
                         cp_lora_out_text = gr.Textbox(show_label=False)
@@ -664,10 +664,10 @@ def launch():
                             gr.Markdown(
                             """
                             ```py
-                            rm -rf /content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/training/lora/output_dir/*
+                            rm -rf /content/trainer/diffusers/lora/output_dir/*
                             ```
                             """)
-                        rm_lora_command = """rm -rf /content/stable-diffusion-webui/extensions/stable-diffusion-webui-trainer/training/lora/output_dir/*"""
+                        rm_lora_command = """rm -rf /content/trainer/diffusers/lora/output_dir/*"""
                         rm_lora = gr.Textbox(show_label=False, lines=1, value=rm_lora_command)
                         rm_lora_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Remove Lora Output Directory")
