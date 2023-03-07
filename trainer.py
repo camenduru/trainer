@@ -267,19 +267,19 @@ def launch():
                     btn_train_dreambooth_run_live = gr.Button("Train Dreambooth")
                     btn_train_dreambooth_run_live.click(run_live, inputs=dreambooth_command, outputs=train_dreambooth_out_text, show_progress=False)
             with gr.Tab("Test"):
-            with gr.Group():
-                with gr.Row():
-                    with gr.Box():
-                        image = gr.Image(show_label=False)
-                    with gr.Box():
-                        output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/trainer/diffusers/dreambooth/output_dir")
-                        prompt = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
-                        negative_prompt = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
-                        steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=1)
-                        scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
-                        checkbox = gr.Checkbox(label="Load Model", value=True)
-                        btn_test_dreambooth = gr.Button("Generate image")
-                        btn_test_dreambooth.click(test_dreambooth, inputs=[output_dir, checkbox, prompt, negative_prompt, steps, scale], outputs=image)
+                with gr.Group():
+                    with gr.Row():
+                        with gr.Box():
+                            image = gr.Image(show_label=False)
+                        with gr.Box():
+                            output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/trainer/diffusers/dreambooth/output_dir")
+                            prompt = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
+                            negative_prompt = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
+                            steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=1)
+                            scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
+                            checkbox = gr.Checkbox(label="Load Model", value=True)
+                            btn_test_dreambooth = gr.Button("Generate image")
+                            btn_test_dreambooth.click(test_dreambooth, inputs=[output_dir, checkbox, prompt, negative_prompt, steps, scale], outputs=image)
             with gr.Tab("Convert"):
             with gr.Group():
                 with gr.Box():
