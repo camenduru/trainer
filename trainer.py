@@ -311,6 +311,7 @@ def launch():
                         convert_dreambooth_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Convert Diffusers to Original Stable Diffusion")
                         btn_run_static.click(run_live, inputs=convert_dreambooth, outputs=convert_dreambooth_out_text, show_progress=False)
+            with gr.Tab("Tools"):
                 with gr.Group():
                     with gr.Box():
                         with gr.Accordion("Remove Dreambooth Output Directory", open=False):
