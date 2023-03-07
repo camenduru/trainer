@@ -531,20 +531,20 @@ def launch():
                     btn_train_lora_run_live = gr.Button("Train Lora")
                     btn_train_lora_run_live.click(run_live, inputs=lora_command, outputs=train_lora_out_text, show_progress=False)
             with gr.Tab("Test"):
-            with gr.Group():
-                with gr.Row():
-                    with gr.Box():
-                        image = gr.Image(show_label=False)
-                    with gr.Box():
-                        model_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/model")
-                        output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/trainer/diffusers/lora/output_dir")
-                        prompt = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
-                        negative_prompt = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
-                        steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=1)
-                        scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
-                        checkbox = gr.Checkbox(label="Load Model", value=True)
-                        btn_test_lora = gr.Button("Generate image")
-                        btn_test_lora.click(test_lora, inputs=[model_dir, checkbox, output_dir, prompt, negative_prompt, steps, scale], outputs=image) 
+                with gr.Group():
+                    with gr.Row():
+                        with gr.Box():
+                            image = gr.Image(show_label=False)
+                        with gr.Box():
+                            model_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/model")
+                            output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/trainer/diffusers/lora/output_dir")
+                            prompt = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
+                            negative_prompt = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
+                            steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=1)
+                            scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
+                            checkbox = gr.Checkbox(label="Load Model", value=True)
+                            btn_test_lora = gr.Button("Generate image")
+                            btn_test_lora.click(test_lora, inputs=[model_dir, checkbox, output_dir, prompt, negative_prompt, steps, scale], outputs=image) 
             with gr.Tab("Tools"):
                 with gr.Group():
                     with gr.Box():
@@ -557,7 +557,7 @@ def launch():
                             ```
                             """)
                         cp_lora_command = """cp /content/trainer/diffusers/lora/output_dir/pytorch_lora_weights.safetensors \\
-                /content/stable-diffusion-webui/extensions/sd-webui-additional-networks/models/lora/parkminyoung.safetensors"""
+                    /content/stable-diffusion-webui/extensions/sd-webui-additional-networks/models/lora/parkminyoung.safetensors"""
                         cp_lora = gr.Textbox(show_label=False, lines=2, value=cp_lora_command)
                         cp_lora_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Copy Lora to Additional Network")
