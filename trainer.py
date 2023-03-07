@@ -704,7 +704,7 @@ def launch():
                         rm /content/drive/MyDrive/AI/training/parkminyoung/parkminyoung-latents.json && \\
                         rm -rf /content/trained
                         """
-                        rm_lora = gr.Textbox(show_label=False, lines=1, value=rm_lora_command)
+                        rm_lora = gr.Textbox(show_label=False, lines=16, value=rm_lora_command)
                         rm_lora_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Remove Lora Output Directory")
                         btn_run_static.click(run_live, inputs=rm_lora, outputs=rm_lora_out_text, show_progress=False)
