@@ -45,7 +45,7 @@ def test_lora(model_dir, load_model, output_dir, prompt, negative_prompt, num_in
 def clear_out_text():
     return ""
 
-trainer = gr.Blocks()
+trainer = gr.Blocks(title="Trainer")
 
 def launch():
     # colab_url = os.getenv('colab_url')
