@@ -281,50 +281,50 @@ def launch():
                             btn_test_dreambooth = gr.Button("Generate image")
                             btn_test_dreambooth.click(test_dreambooth, inputs=[output_dir, checkbox, prompt, negative_prompt, steps, scale], outputs=image)
             with gr.Tab("Convert"):
-            with gr.Group():
-                with gr.Box():
-                    with gr.Accordion("Convert Diffusers to Original Stable Diffusion Common Arguments", open=False):
-                        gr.Markdown(
-                        """
-                        ```py
-                        --model_path /content/trainer/diffusers/dreambooth/output_dir \\
-                        --checkpoint_path /content/stable-diffusion-webui/models/Stable-diffusion/parkminyoung.ckpt
-                        ```
-                        """)
-                    with gr.Accordion("Convert Diffusers to Original Stable Diffusion All Arguments", open=False):
-                        gr.Markdown(
-                        """
-                        ```py
-                        -h, --help            show this help message and exit
-                        --model_path MODEL_PATH
-                                                Path to the model to convert.
-                        --checkpoint_path CHECKPOINT_PATH
-                                                Path to the output model.
-                        --half                Save weights in half precision.
-                        --use_safetensors     Save weights use safetensors, default is ckpt.
-                        ```
-                        """)
-                    convert_command = """python /content/trainer/diffusers/dreambooth/convert_diffusers_to_original_stable_diffusion.py \\
-            --model_path /content/trainer/diffusers/dreambooth/output_dir \\
-            --checkpoint_path /content/stable-diffusion-webui/models/Stable-diffusion/parkminyoung.ckpt"""
-                    convert_dreambooth = gr.Textbox(show_label=False, lines=3, value=convert_command)
-                    convert_dreambooth_out_text = gr.Textbox(show_label=False)
-                    btn_run_static = gr.Button("Convert Diffusers to Original Stable Diffusion")
-                    btn_run_static.click(run_live, inputs=convert_dreambooth, outputs=convert_dreambooth_out_text, show_progress=False)
-            with gr.Group():
-                with gr.Box():
-                    with gr.Accordion("Remove Dreambooth Output Directory", open=False):
-                        gr.Markdown(
-                        """
-                        ```py
-                        rm -rf /content/trainer/diffusers/dreambooth/output_dir/*
-                        ```
-                        """)
-                    rm_dreambooth_command = """rm -rf /content/trainer/diffusers/dreambooth/output_dir/*"""
-                    rm_dreambooth = gr.Textbox(show_label=False, lines=1, value=rm_dreambooth_command)
-                    rm_dreambooth_out_text = gr.Textbox(show_label=False)
-                    btn_run_static = gr.Button("Remove Dreambooth Output Directory")
-                    btn_run_static.click(run_live, inputs=rm_dreambooth, outputs=rm_dreambooth_out_text, show_progress=False)
+                with gr.Group():
+                    with gr.Box():
+                        with gr.Accordion("Convert Diffusers to Original Stable Diffusion Common Arguments", open=False):
+                            gr.Markdown(
+                            """
+                            ```py
+                            --model_path /content/trainer/diffusers/dreambooth/output_dir \\
+                            --checkpoint_path /content/stable-diffusion-webui/models/Stable-diffusion/parkminyoung.ckpt
+                            ```
+                            """)
+                        with gr.Accordion("Convert Diffusers to Original Stable Diffusion All Arguments", open=False):
+                            gr.Markdown(
+                            """
+                            ```py
+                            -h, --help            show this help message and exit
+                            --model_path MODEL_PATH
+                                                    Path to the model to convert.
+                            --checkpoint_path CHECKPOINT_PATH
+                                                    Path to the output model.
+                            --half                Save weights in half precision.
+                            --use_safetensors     Save weights use safetensors, default is ckpt.
+                            ```
+                            """)
+                        convert_command = """python /content/trainer/diffusers/dreambooth/convert_diffusers_to_original_stable_diffusion.py \\
+                --model_path /content/trainer/diffusers/dreambooth/output_dir \\
+                --checkpoint_path /content/stable-diffusion-webui/models/Stable-diffusion/parkminyoung.ckpt"""
+                        convert_dreambooth = gr.Textbox(show_label=False, lines=3, value=convert_command)
+                        convert_dreambooth_out_text = gr.Textbox(show_label=False)
+                        btn_run_static = gr.Button("Convert Diffusers to Original Stable Diffusion")
+                        btn_run_static.click(run_live, inputs=convert_dreambooth, outputs=convert_dreambooth_out_text, show_progress=False)
+                with gr.Group():
+                    with gr.Box():
+                        with gr.Accordion("Remove Dreambooth Output Directory", open=False):
+                            gr.Markdown(
+                            """
+                            ```py
+                            rm -rf /content/trainer/diffusers/dreambooth/output_dir/*
+                            ```
+                            """)
+                        rm_dreambooth_command = """rm -rf /content/trainer/diffusers/dreambooth/output_dir/*"""
+                        rm_dreambooth = gr.Textbox(show_label=False, lines=1, value=rm_dreambooth_command)
+                        rm_dreambooth_out_text = gr.Textbox(show_label=False)
+                        btn_run_static = gr.Button("Remove Dreambooth Output Directory")
+                        btn_run_static.click(run_live, inputs=rm_dreambooth, outputs=rm_dreambooth_out_text, show_progress=False)
         with gr.Tab("Train LoRA"):
             with gr.Tab("Train"):
                 with gr.Box():
@@ -546,36 +546,36 @@ def launch():
                         btn_test_lora = gr.Button("Generate image")
                         btn_test_lora.click(test_lora, inputs=[model_dir, checkbox, output_dir, prompt, negative_prompt, steps, scale], outputs=image) 
             with gr.Tab("Tools"):
-            with gr.Group():
-                with gr.Box():
-                    with gr.Accordion("Copy Lora to Additional Network", open=False):
-                        gr.Markdown(
-                        """
-                        ```py
-                        cp /content/trainer/diffusers/lora/output_dir/pytorch_lora_weights.safetensors \\
-                        /content/stable-diffusion-webui/extensions/sd-webui-additional-networks/models/lora/parkminyoung.safetensors
-                        ```
-                        """)
-                    cp_lora_command = """cp /content/trainer/diffusers/lora/output_dir/pytorch_lora_weights.safetensors \\
-            /content/stable-diffusion-webui/extensions/sd-webui-additional-networks/models/lora/parkminyoung.safetensors"""
-                    cp_lora = gr.Textbox(show_label=False, lines=2, value=cp_lora_command)
-                    cp_lora_out_text = gr.Textbox(show_label=False)
-                    btn_run_static = gr.Button("Copy Lora to Additional Network")
-                    btn_run_static.click(run_live, inputs=cp_lora, outputs=cp_lora_out_text, show_progress=False)
-            with gr.Group():
-                with gr.Box():
-                    with gr.Accordion("Remove Lora Output Directory", open=False):
-                        gr.Markdown(
-                        """
-                        ```py
-                        rm -rf /content/trainer/diffusers/lora/output_dir/*
-                        ```
-                        """)
-                    rm_lora_command = """rm -rf /content/trainer/diffusers/lora/output_dir/*"""
-                    rm_lora = gr.Textbox(show_label=False, lines=1, value=rm_lora_command)
-                    rm_lora_out_text = gr.Textbox(show_label=False)
-                    btn_run_static = gr.Button("Remove Lora Output Directory")
-                    btn_run_static.click(run_live, inputs=rm_lora, outputs=rm_lora_out_text, show_progress=False)
+                with gr.Group():
+                    with gr.Box():
+                        with gr.Accordion("Copy Lora to Additional Network", open=False):
+                            gr.Markdown(
+                            """
+                            ```py
+                            cp /content/trainer/diffusers/lora/output_dir/pytorch_lora_weights.safetensors \\
+                            /content/stable-diffusion-webui/extensions/sd-webui-additional-networks/models/lora/parkminyoung.safetensors
+                            ```
+                            """)
+                        cp_lora_command = """cp /content/trainer/diffusers/lora/output_dir/pytorch_lora_weights.safetensors \\
+                /content/stable-diffusion-webui/extensions/sd-webui-additional-networks/models/lora/parkminyoung.safetensors"""
+                        cp_lora = gr.Textbox(show_label=False, lines=2, value=cp_lora_command)
+                        cp_lora_out_text = gr.Textbox(show_label=False)
+                        btn_run_static = gr.Button("Copy Lora to Additional Network")
+                        btn_run_static.click(run_live, inputs=cp_lora, outputs=cp_lora_out_text, show_progress=False)
+                with gr.Group():
+                    with gr.Box():
+                        with gr.Accordion("Remove Lora Output Directory", open=False):
+                            gr.Markdown(
+                            """
+                            ```py
+                            rm -rf /content/trainer/diffusers/lora/output_dir/*
+                            ```
+                            """)
+                        rm_lora_command = """rm -rf /content/trainer/diffusers/lora/output_dir/*"""
+                        rm_lora = gr.Textbox(show_label=False, lines=1, value=rm_lora_command)
+                        rm_lora_out_text = gr.Textbox(show_label=False)
+                        btn_run_static = gr.Button("Remove Lora Output Directory")
+                        btn_run_static.click(run_live, inputs=rm_lora, outputs=rm_lora_out_text, show_progress=False)
         with gr.Tab("Train LoRA for WebUI"):
             with gr.Tab("Tag Images"):
                 with gr.Box():
