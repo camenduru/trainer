@@ -52,8 +52,8 @@ def launch():
     # strings.en["SHARE_LINK_MESSAGE"] = f"WebUI Colab URL: {colab_url}"
     strings.en["SHARE_LINK_MESSAGE"] = f"😊"
     with trainer:
-        with gr.Tab("Training"):
-            with gr.Tab("Train Dreambooth"):
+        with gr.Tab("Train Dreambooth"):
+            with gr.Tab("Train"):
                 with gr.Box():
                     with gr.Accordion("Train Dreambooth Common Arguments", open=False):
                         gr.Markdown(
@@ -266,7 +266,67 @@ def launch():
                     train_dreambooth_out_text = gr.Textbox(show_label=False)
                     btn_train_dreambooth_run_live = gr.Button("Train Dreambooth")
                     btn_train_dreambooth_run_live.click(run_live, inputs=dreambooth_command, outputs=train_dreambooth_out_text, show_progress=False)
-            with gr.Tab("Train LoRA"):
+            with gr.Tab("Test"):
+            with gr.Group():
+                with gr.Row():
+                    with gr.Box():
+                        image = gr.Image(show_label=False)
+                    with gr.Box():
+                        output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/trainer/diffusers/dreambooth/output_dir")
+                        prompt = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
+                        negative_prompt = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
+                        steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=1)
+                        scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
+                        checkbox = gr.Checkbox(label="Load Model", value=True)
+                        btn_test_dreambooth = gr.Button("Generate image")
+                        btn_test_dreambooth.click(test_dreambooth, inputs=[output_dir, checkbox, prompt, negative_prompt, steps, scale], outputs=image)
+            with gr.Tab("Convert"):
+            with gr.Group():
+                with gr.Box():
+                    with gr.Accordion("Convert Diffusers to Original Stable Diffusion Common Arguments", open=False):
+                        gr.Markdown(
+                        """
+                        ```py
+                        --model_path /content/trainer/diffusers/dreambooth/output_dir \\
+                        --checkpoint_path /content/stable-diffusion-webui/models/Stable-diffusion/parkminyoung.ckpt
+                        ```
+                        """)
+                    with gr.Accordion("Convert Diffusers to Original Stable Diffusion All Arguments", open=False):
+                        gr.Markdown(
+                        """
+                        ```py
+                        -h, --help            show this help message and exit
+                        --model_path MODEL_PATH
+                                                Path to the model to convert.
+                        --checkpoint_path CHECKPOINT_PATH
+                                                Path to the output model.
+                        --half                Save weights in half precision.
+                        --use_safetensors     Save weights use safetensors, default is ckpt.
+                        ```
+                        """)
+                    convert_command = """python /content/trainer/diffusers/dreambooth/convert_diffusers_to_original_stable_diffusion.py \\
+            --model_path /content/trainer/diffusers/dreambooth/output_dir \\
+            --checkpoint_path /content/stable-diffusion-webui/models/Stable-diffusion/parkminyoung.ckpt"""
+                    convert_dreambooth = gr.Textbox(show_label=False, lines=3, value=convert_command)
+                    convert_dreambooth_out_text = gr.Textbox(show_label=False)
+                    btn_run_static = gr.Button("Convert Diffusers to Original Stable Diffusion")
+                    btn_run_static.click(run_live, inputs=convert_dreambooth, outputs=convert_dreambooth_out_text, show_progress=False)
+            with gr.Group():
+                with gr.Box():
+                    with gr.Accordion("Remove Dreambooth Output Directory", open=False):
+                        gr.Markdown(
+                        """
+                        ```py
+                        rm -rf /content/trainer/diffusers/dreambooth/output_dir/*
+                        ```
+                        """)
+                    rm_dreambooth_command = """rm -rf /content/trainer/diffusers/dreambooth/output_dir/*"""
+                    rm_dreambooth = gr.Textbox(show_label=False, lines=1, value=rm_dreambooth_command)
+                    rm_dreambooth_out_text = gr.Textbox(show_label=False)
+                    btn_run_static = gr.Button("Remove Dreambooth Output Directory")
+                    btn_run_static.click(run_live, inputs=rm_dreambooth, outputs=rm_dreambooth_out_text, show_progress=False)
+        with gr.Tab("Train LoRA"):
+            with gr.Tab("Train"):
                 with gr.Box():
                     with gr.Accordion("Train Lora Common Arguments", open=False):
                         gr.Markdown(
@@ -470,85 +530,131 @@ def launch():
                     train_lora_out_text = gr.Textbox(show_label=False)
                     btn_train_lora_run_live = gr.Button("Train Lora")
                     btn_train_lora_run_live.click(run_live, inputs=lora_command, outputs=train_lora_out_text, show_progress=False)
-            with gr.Tab("Train LoRA for WebUI"):
-                with gr.Tab("Tag Images"):
+            with gr.Tab("Test"):
+            with gr.Group():
+                with gr.Row():
                     with gr.Box():
-                        with gr.Accordion("Train Lora WebUI Tag Images Common Arguments", open=False):
-                            gr.Markdown(
-                            """
-                            ```py
-                            /content/drive/MyDrive/AI/training/parkminyoung \\
-                            --repo_id SmilingWolf/wd-v1-4-convnext-tagger-v2 \\
-                            --model_dir wd14_tagger_model \\
-                            --thresh 0.35 \\
-                            --batch_size 1 \\
-                            --caption_extension .txt \\
-                            ```
-                            """)                        
-                        train_tag_lora_webui_command = """python -u /content/trainer/sd-scripts/finetune/tag_images_by_wd14_tagger.py \\
-                    /content/drive/MyDrive/AI/training/parkminyoung \\
-                    --repo_id SmilingWolf/wd-v1-4-convnext-tagger-v2 \\
-                    --model_dir wd14_tagger_model \\
-                    --thresh 0.35 \\
-                    --batch_size 1 \\
-                    --caption_extension .txt"""
-                        tag_lora_webui_command = gr.Textbox(show_label=False, lines=16, value=train_tag_lora_webui_command)
-                        train_tag_lora_webui_out_text = gr.Textbox(show_label=False)
-                        btn_train_tag_lora_webui_run_live = gr.Button("Train Lora")
-                        btn_train_tag_lora_webui_run_live.click(run_live, inputs=tag_lora_webui_command, outputs=train_tag_lora_webui_out_text, show_progress=False)
-                with gr.Tab("Merge Tags"):
+                        image = gr.Image(show_label=False)
                     with gr.Box():
-                        with gr.Accordion("Train Lora WebUI Merge Tags Common Arguments", open=False):
-                            gr.Markdown(
-                            """
-                            ```py
-                            /content/drive/MyDrive/AI/training/parkminyoung \\
-                            /content/drive/MyDrive/AI/training/parkminyoung/parkminyoung.json \\
-                            --caption_extension .txt \\
-                            ```
-                            """)                        
-                        train_merge_lora_webui_command = """python -u /content/trainer/sd-scripts/finetune/merge_dd_tags_to_metadata.py \\
-                    /content/drive/MyDrive/AI/training/parkminyoung \\
-                    /content/drive/MyDrive/AI/training/parkminyoung/parkminyoung.json \\
-                    --caption_extension .txt"""
-                        merge_lora_webui_command = gr.Textbox(show_label=False, lines=16, value=train_merge_lora_webui_command)
-                        train_merge_lora_webui_out_text = gr.Textbox(show_label=False)
-                        btn_train_merge_lora_webui_run_live = gr.Button("Train Lora")
-                        btn_train_merge_lora_webui_run_live.click(run_live, inputs=merge_lora_webui_command, outputs=train_merge_lora_webui_out_text, show_progress=False)
-                with gr.Tab("Prepare Latents"):
-                    with gr.Box():
-                        with gr.Accordion("Train Lora WebUI Merge Tags Common Arguments", open=False):
-                            gr.Markdown(
-                            """
-                            ```py
-                            /content/drive/MyDrive/AI/training/parkminyoung \\
-                            /content/drive/MyDrive/AI/training/parkminyoung/parkminyoung.json \\
-                            /content/drive/MyDrive/AI/training/parkminyoung/parkminyoung-latents.json \\
-                            /content/model/model.ckpt \\
-                            --batch_size 1 \\
-                            --max_resolution 512,512 \\
-                            --min_bucket_reso 256 \\
-                            --max_bucket_reso 1024 \\
-                            --bucket_reso_steps 64 \\
-                            --mixed_precision no \\
-                            ```
-                            """)                        
-                        train_prepare_lora_webui_command = """python -u /content/trainer/sd-scripts/finetune/prepare_buckets_latents.py \\
-                    /content/drive/MyDrive/AI/training/parkminyoung \\
-                    /content/drive/MyDrive/AI/training/parkminyoung/parkminyoung.json \\
-                    /content/drive/MyDrive/AI/training/parkminyoung/parkminyoung-latents.json \\
-                    /content/model/model.ckpt \\
-                    --batch_size 1 \\
-                    --max_resolution 512,512 \\
-                    --min_bucket_reso 256 \\
-                    --max_bucket_reso 1024 \\
-                    --bucket_reso_steps 64 \\
-                    --mixed_precision no"""
-                        prepare_lora_webui_command = gr.Textbox(show_label=False, lines=16, value=train_prepare_lora_webui_command)
-                        train_prepare_lora_webui_out_text = gr.Textbox(show_label=False)
-                        btn_train_prepare_lora_webui_run_live = gr.Button("Train Lora")
-                        btn_train_prepare_lora_webui_run_live.click(run_live, inputs=prepare_lora_webui_command, outputs=train_prepare_lora_webui_out_text, show_progress=False)
-                with gr.Tab("Train"):
+                        model_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/model")
+                        output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/trainer/diffusers/lora/output_dir")
+                        prompt = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
+                        negative_prompt = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
+                        steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=1)
+                        scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
+                        checkbox = gr.Checkbox(label="Load Model", value=True)
+                        btn_test_lora = gr.Button("Generate image")
+                        btn_test_lora.click(test_lora, inputs=[model_dir, checkbox, output_dir, prompt, negative_prompt, steps, scale], outputs=image) 
+            with gr.Tab("Tools"):
+            with gr.Group():
+                with gr.Box():
+                    with gr.Accordion("Copy Lora to Additional Network", open=False):
+                        gr.Markdown(
+                        """
+                        ```py
+                        cp /content/trainer/diffusers/lora/output_dir/pytorch_lora_weights.safetensors \\
+                        /content/stable-diffusion-webui/extensions/sd-webui-additional-networks/models/lora/parkminyoung.safetensors
+                        ```
+                        """)
+                    cp_lora_command = """cp /content/trainer/diffusers/lora/output_dir/pytorch_lora_weights.safetensors \\
+            /content/stable-diffusion-webui/extensions/sd-webui-additional-networks/models/lora/parkminyoung.safetensors"""
+                    cp_lora = gr.Textbox(show_label=False, lines=2, value=cp_lora_command)
+                    cp_lora_out_text = gr.Textbox(show_label=False)
+                    btn_run_static = gr.Button("Copy Lora to Additional Network")
+                    btn_run_static.click(run_live, inputs=cp_lora, outputs=cp_lora_out_text, show_progress=False)
+            with gr.Group():
+                with gr.Box():
+                    with gr.Accordion("Remove Lora Output Directory", open=False):
+                        gr.Markdown(
+                        """
+                        ```py
+                        rm -rf /content/trainer/diffusers/lora/output_dir/*
+                        ```
+                        """)
+                    rm_lora_command = """rm -rf /content/trainer/diffusers/lora/output_dir/*"""
+                    rm_lora = gr.Textbox(show_label=False, lines=1, value=rm_lora_command)
+                    rm_lora_out_text = gr.Textbox(show_label=False)
+                    btn_run_static = gr.Button("Remove Lora Output Directory")
+                    btn_run_static.click(run_live, inputs=rm_lora, outputs=rm_lora_out_text, show_progress=False)
+        with gr.Tab("Train LoRA for WebUI"):
+            with gr.Tab("Tag Images"):
+                with gr.Box():
+                    with gr.Accordion("Train Lora WebUI Tag Images Common Arguments", open=False):
+                        gr.Markdown(
+                        """
+                        ```py
+                        /content/drive/MyDrive/AI/training/parkminyoung \\
+                        --repo_id SmilingWolf/wd-v1-4-convnext-tagger-v2 \\
+                        --model_dir wd14_tagger_model \\
+                        --thresh 0.35 \\
+                        --batch_size 1 \\
+                        --caption_extension .txt \\
+                        ```
+                        """)                        
+                    train_tag_lora_webui_command = """python -u /content/trainer/sd-scripts/finetune/tag_images_by_wd14_tagger.py \\
+                /content/drive/MyDrive/AI/training/parkminyoung \\
+                --repo_id SmilingWolf/wd-v1-4-convnext-tagger-v2 \\
+                --model_dir wd14_tagger_model \\
+                --thresh 0.35 \\
+                --batch_size 1 \\
+                --caption_extension .txt"""
+                    tag_lora_webui_command = gr.Textbox(show_label=False, lines=16, value=train_tag_lora_webui_command)
+                    train_tag_lora_webui_out_text = gr.Textbox(show_label=False)
+                    btn_train_tag_lora_webui_run_live = gr.Button("Train Lora")
+                    btn_train_tag_lora_webui_run_live.click(run_live, inputs=tag_lora_webui_command, outputs=train_tag_lora_webui_out_text, show_progress=False)
+            with gr.Tab("Merge Tags"):
+                with gr.Box():
+                    with gr.Accordion("Train Lora WebUI Merge Tags Common Arguments", open=False):
+                        gr.Markdown(
+                        """
+                        ```py
+                        /content/drive/MyDrive/AI/training/parkminyoung \\
+                        /content/drive/MyDrive/AI/training/parkminyoung/parkminyoung.json \\
+                        --caption_extension .txt \\
+                        ```
+                        """)                        
+                    train_merge_lora_webui_command = """python -u /content/trainer/sd-scripts/finetune/merge_dd_tags_to_metadata.py \\
+                /content/drive/MyDrive/AI/training/parkminyoung \\
+                /content/drive/MyDrive/AI/training/parkminyoung/parkminyoung.json \\
+                --caption_extension .txt"""
+                    merge_lora_webui_command = gr.Textbox(show_label=False, lines=16, value=train_merge_lora_webui_command)
+                    train_merge_lora_webui_out_text = gr.Textbox(show_label=False)
+                    btn_train_merge_lora_webui_run_live = gr.Button("Train Lora")
+                    btn_train_merge_lora_webui_run_live.click(run_live, inputs=merge_lora_webui_command, outputs=train_merge_lora_webui_out_text, show_progress=False)
+            with gr.Tab("Prepare Latents"):
+                with gr.Box():
+                    with gr.Accordion("Train Lora WebUI Merge Tags Common Arguments", open=False):
+                        gr.Markdown(
+                        """
+                        ```py
+                        /content/drive/MyDrive/AI/training/parkminyoung \\
+                        /content/drive/MyDrive/AI/training/parkminyoung/parkminyoung.json \\
+                        /content/drive/MyDrive/AI/training/parkminyoung/parkminyoung-latents.json \\
+                        /content/model/model.ckpt \\
+                        --batch_size 1 \\
+                        --max_resolution 512,512 \\
+                        --min_bucket_reso 256 \\
+                        --max_bucket_reso 1024 \\
+                        --bucket_reso_steps 64 \\
+                        --mixed_precision no \\
+                        ```
+                        """)                        
+                    train_prepare_lora_webui_command = """python -u /content/trainer/sd-scripts/finetune/prepare_buckets_latents.py \\
+                /content/drive/MyDrive/AI/training/parkminyoung \\
+                /content/drive/MyDrive/AI/training/parkminyoung/parkminyoung.json \\
+                /content/drive/MyDrive/AI/training/parkminyoung/parkminyoung-latents.json \\
+                /content/model/model.ckpt \\
+                --batch_size 1 \\
+                --max_resolution 512,512 \\
+                --min_bucket_reso 256 \\
+                --max_bucket_reso 1024 \\
+                --bucket_reso_steps 64 \\
+                --mixed_precision no"""
+                    prepare_lora_webui_command = gr.Textbox(show_label=False, lines=16, value=train_prepare_lora_webui_command)
+                    train_prepare_lora_webui_out_text = gr.Textbox(show_label=False)
+                    btn_train_prepare_lora_webui_run_live = gr.Button("Train Lora")
+                    btn_train_prepare_lora_webui_run_live.click(run_live, inputs=prepare_lora_webui_command, outputs=train_prepare_lora_webui_out_text, show_progress=False)
+            with gr.Tab("Train"):
                     with gr.Box():
                         with gr.Accordion("Train Lora WebUI Common Arguments", open=False):
                             gr.Markdown(
@@ -577,113 +683,6 @@ def launch():
                         train_lora_webui_out_text = gr.Textbox(show_label=False)
                         btn_train_lora_webui_run_live = gr.Button("Train Lora")
                         btn_train_lora_webui_run_live.click(run_live, inputs=lora_webui_command, outputs=train_lora_webui_out_text, show_progress=False)
-        with gr.Tab("Test"):
-            with gr.Tab("Test Dreambooth"):
-                with gr.Group():
-                    with gr.Row():
-                        with gr.Box():
-                            image = gr.Image(show_label=False)
-                        with gr.Box():
-                            output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/trainer/diffusers/dreambooth/output_dir")
-                            prompt = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
-                            negative_prompt = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
-                            steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=1)
-                            scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
-                            checkbox = gr.Checkbox(label="Load Model", value=True)
-                            btn_test_dreambooth = gr.Button("Generate image")
-                            btn_test_dreambooth.click(test_dreambooth, inputs=[output_dir, checkbox, prompt, negative_prompt, steps, scale], outputs=image) 
-            with gr.Tab("Test LoRA"):
-                with gr.Group():
-                    with gr.Row():
-                        with gr.Box():
-                            image = gr.Image(show_label=False)
-                        with gr.Box():
-                            model_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/model")
-                            output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/trainer/diffusers/lora/output_dir")
-                            prompt = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
-                            negative_prompt = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
-                            steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=1)
-                            scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
-                            checkbox = gr.Checkbox(label="Load Model", value=True)
-                            btn_test_lora = gr.Button("Generate image")
-                            btn_test_lora.click(test_lora, inputs=[model_dir, checkbox, output_dir, prompt, negative_prompt, steps, scale], outputs=image) 
-        with gr.Tab("Convert"):
-            with gr.Tab("Convert Dreambooth"):
-                with gr.Group():
-                    with gr.Box():
-                        with gr.Accordion("Convert Diffusers to Original Stable Diffusion Common Arguments", open=False):
-                            gr.Markdown(
-                            """
-                            ```py
-                            --model_path /content/trainer/diffusers/dreambooth/output_dir \\
-                            --checkpoint_path /content/stable-diffusion-webui/models/Stable-diffusion/parkminyoung.ckpt
-                            ```
-                            """)
-                        with gr.Accordion("Convert Diffusers to Original Stable Diffusion All Arguments", open=False):
-                            gr.Markdown(
-                            """
-                            ```py
-                            -h, --help            show this help message and exit
-                            --model_path MODEL_PATH
-                                                    Path to the model to convert.
-                            --checkpoint_path CHECKPOINT_PATH
-                                                    Path to the output model.
-                            --half                Save weights in half precision.
-                            --use_safetensors     Save weights use safetensors, default is ckpt.
-                            ```
-                            """)
-                        convert_command = """python /content/trainer/diffusers/dreambooth/convert_diffusers_to_original_stable_diffusion.py \\
-                --model_path /content/trainer/diffusers/dreambooth/output_dir \\
-                --checkpoint_path /content/stable-diffusion-webui/models/Stable-diffusion/parkminyoung.ckpt"""
-                        convert_dreambooth = gr.Textbox(show_label=False, lines=3, value=convert_command)
-                        convert_dreambooth_out_text = gr.Textbox(show_label=False)
-                        btn_run_static = gr.Button("Convert Diffusers to Original Stable Diffusion")
-                        btn_run_static.click(run_live, inputs=convert_dreambooth, outputs=convert_dreambooth_out_text, show_progress=False)
-                with gr.Group():
-                    with gr.Box():
-                        with gr.Accordion("Remove Dreambooth Output Directory", open=False):
-                            gr.Markdown(
-                            """
-                            ```py
-                            rm -rf /content/trainer/diffusers/dreambooth/output_dir/*
-                            ```
-                            """)
-                        rm_dreambooth_command = """rm -rf /content/trainer/diffusers/dreambooth/output_dir/*"""
-                        rm_dreambooth = gr.Textbox(show_label=False, lines=1, value=rm_dreambooth_command)
-                        rm_dreambooth_out_text = gr.Textbox(show_label=False)
-                        btn_run_static = gr.Button("Remove Dreambooth Output Directory")
-                        btn_run_static.click(run_live, inputs=rm_dreambooth, outputs=rm_dreambooth_out_text, show_progress=False)
-            with gr.Tab("Convert Lora"):
-                with gr.Group():
-                    with gr.Box():
-                        with gr.Accordion("Copy Lora to Additional Network", open=False):
-                            gr.Markdown(
-                            """
-                            ```py
-                            cp /content/trainer/diffusers/lora/output_dir/pytorch_lora_weights.safetensors \\
-                            /content/stable-diffusion-webui/extensions/sd-webui-additional-networks/models/lora/parkminyoung.safetensors
-                            ```
-                            """)
-                        cp_lora_command = """cp /content/trainer/diffusers/lora/output_dir/pytorch_lora_weights.safetensors \\
-            /content/stable-diffusion-webui/extensions/sd-webui-additional-networks/models/lora/parkminyoung.safetensors"""
-                        cp_lora = gr.Textbox(show_label=False, lines=2, value=cp_lora_command)
-                        cp_lora_out_text = gr.Textbox(show_label=False)
-                        btn_run_static = gr.Button("Copy Lora to Additional Network")
-                        btn_run_static.click(run_live, inputs=cp_lora, outputs=cp_lora_out_text, show_progress=False)
-                with gr.Group():
-                    with gr.Box():
-                        with gr.Accordion("Remove Lora Output Directory", open=False):
-                            gr.Markdown(
-                            """
-                            ```py
-                            rm -rf /content/trainer/diffusers/lora/output_dir/*
-                            ```
-                            """)
-                        rm_lora_command = """rm -rf /content/trainer/diffusers/lora/output_dir/*"""
-                        rm_lora = gr.Textbox(show_label=False, lines=1, value=rm_lora_command)
-                        rm_lora_out_text = gr.Textbox(show_label=False)
-                        btn_run_static = gr.Button("Remove Lora Output Directory")
-                        btn_run_static.click(run_live, inputs=rm_lora, outputs=rm_lora_out_text, show_progress=False)
     trainer.queue().launch(debug=True, share=True, inline=False)
 
 if __name__ == "__main__":
