@@ -52,7 +52,7 @@ def launch():
     # strings.en["SHARE_LINK_MESSAGE"] = f"WebUI Colab URL: {colab_url}"
     strings.en["SHARE_LINK_MESSAGE"] = f"😊"
     with trainer:
-        with gr.Tab("Train Dreambooth"):
+        with gr.Tab("Train Dreambooth for WebUI and Diffusers Lib"):
             with gr.Tab("Train"):
                 with gr.Box():
                     with gr.Accordion("Train Dreambooth Common Arguments", open=False):
@@ -325,7 +325,7 @@ def launch():
                         rm_dreambooth_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Remove Dreambooth Output Directory")
                         btn_run_static.click(run_live, inputs=rm_dreambooth, outputs=rm_dreambooth_out_text, show_progress=False)
-        with gr.Tab("Train LoRA"):
+        with gr.Tab("Train LoRA for Diffusers Lib"):
             with gr.Tab("Train"):
                 with gr.Box():
                     with gr.Accordion("Train Lora Common Arguments", open=False):
