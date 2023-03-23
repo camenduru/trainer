@@ -736,27 +736,24 @@ def launch():
                         """)
                     train_textual_inversion_command = """python -u /content/trainer/diffusers/textual_inversion/textual_inversion.py \\
                     --pretrained_model_name_or_path="/content/model"  \\
-                    --instance_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
+                    --train_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
+                    --learnable_property="object" \\
                     --output_dir="/content/trainer/diffusers/textual_inversion/output_dir" \\
+                    --placeholder_token="<parkminyoung>" \\
+                    --initializer_token="parkminyoung" \\
                     --learning_rate=5e-6 \\
-                    --max_train_steps=650 \\
-                    --instance_prompt="parkminyoung" \\
+                    --scale_lr \\
+                    --lr_scheduler="constant" \\
+                    --lr_warmup_steps=0 \\
+                    --max_train_steps=3000 \\
                     --resolution=512 \\
                     --center_crop \\
                     --train_batch_size=1 \\
                     --gradient_accumulation_steps=1 \\
-                    --max_grad_norm=1.0 \\
                     --mixed_precision="fp16" \\
                     --gradient_checkpointing \\
                     --enable_xformers_memory_efficient_attention \\
-                    --use_8bit_adam \\
-                    --with_prior_preservation \\
-                    --class_data_dir="/content/trainer/diffusers/textual_inversion/class_data_dir" \\
-                    --prior_loss_weight=1.0 \\
-                    --sample_batch_size=2 \\
-                    --class_prompt="person" \\
-                    --seed=69 \\
-                    --num_class_images=12"""
+                    --use_8bit_adam"""
                     textual_inversion_command = gr.Textbox(show_label=False, lines=23, value=train_textual_inversion_command)
                     train_textual_inversion_out_text = gr.Textbox(show_label=False)
                     btn_train_textual_inversion_run_live = gr.Button("Train Textual Inversion")
