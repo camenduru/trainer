@@ -577,6 +577,100 @@ def launch():
         #                 rm_lora_out_text = gr.Textbox(show_label=False)
         #                 btn_run_static = gr.Button("Remove Lora Output Directory")
         #                 btn_run_static.click(run_live, inputs=rm_lora, outputs=rm_lora_out_text, show_progress=False)
+        with gr.Tab("Textual Inversion for WebUI and Diffusers Lib"):
+            with gr.Tab("Train"):
+                with gr.Box():
+                    with gr.Accordion("Train Textual Inversion Common Arguments", open=False):
+                        gr.Markdown(
+                        """
+                        ```py
+                        --pretrained_model_name_or_path="/content/model"  \\
+                        --instance_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
+                        --output_dir="/content/trainer/diffusers/dreambooth/output_dir" \\
+                        --learning_rate=5e-6 \\
+                        --max_train_steps=650 \\
+                        --instance_prompt="parkminyoung" \\
+                        --resolution=512 \\
+                        --center_crop \\
+                        --train_batch_size=1 \\
+                        --gradient_accumulation_steps=1 \\
+                        --max_grad_norm=1.0 \\
+                        --mixed_precision="fp16" \\
+                        --gradient_checkpointing \\
+                        --enable_xformers_memory_efficient_attention \\
+                        --use_8bit_adam \\
+                        --with_prior_preservation \\
+                        --class_data_dir="/content/trainer/diffusers/dreambooth/class_data_dir" \\
+                        --prior_loss_weight=1.0 \\
+                        --sample_batch_size=2 \\
+                        --class_prompt="person" \\
+                        --seed=69 \\
+                        --num_class_images=12 \\
+                        ```
+                        """)
+                    with gr.Accordion("Train Textual Inversion All Arguments", open=False):
+                        gr.Markdown(
+                        """
+                        ```py
+
+                        ```
+                        """)
+                    train_dreambooth_command = """python -u /content/trainer/diffusers/textual_inversion/textual_inversion.py \\
+                    --pretrained_model_name_or_path="/content/model"  \\
+                    --instance_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
+                    --output_dir="/content/trainer/diffusers/textual_inversion/output_dir" \\
+                    --learning_rate=5e-6 \\
+                    --max_train_steps=650 \\
+                    --instance_prompt="parkminyoung" \\
+                    --resolution=512 \\
+                    --center_crop \\
+                    --train_batch_size=1 \\
+                    --gradient_accumulation_steps=1 \\
+                    --max_grad_norm=1.0 \\
+                    --mixed_precision="fp16" \\
+                    --gradient_checkpointing \\
+                    --enable_xformers_memory_efficient_attention \\
+                    --use_8bit_adam \\
+                    --with_prior_preservation \\
+                    --class_data_dir="/content/trainer/diffusers/textual_inversion/class_data_dir" \\
+                    --prior_loss_weight=1.0 \\
+                    --sample_batch_size=2 \\
+                    --class_prompt="person" \\
+                    --seed=69 \\
+                    --num_class_images=12"""
+                    dreambooth_command = gr.Textbox(show_label=False, lines=23, value=train_dreambooth_command)
+                    train_dreambooth_out_text = gr.Textbox(show_label=False)
+                    btn_train_dreambooth_run_live = gr.Button("Train Textual Inversion")
+                    btn_train_dreambooth_run_live.click(run_live, inputs=dreambooth_command, outputs=train_dreambooth_out_text, show_progress=False)
+            with gr.Tab("Test"):
+                with gr.Group():
+                    with gr.Row():
+                        with gr.Box():
+                            image = gr.Image(show_label=False)
+                        with gr.Box():
+                            output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/trainer/diffusers/dreambooth/output_dir")
+                            prompt = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
+                            negative_prompt = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
+                            steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=1)
+                            scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
+                            checkbox = gr.Checkbox(label="Load Model", value=True)
+                            btn_test_dreambooth = gr.Button("Generate image")
+                            btn_test_dreambooth.click(test_dreambooth, inputs=[output_dir, checkbox, prompt, negative_prompt, steps, scale], outputs=image)
+            with gr.Tab("Tools"):
+                with gr.Group():
+                    with gr.Box():
+                        with gr.Accordion("Remove Textual Inversion Output Directory", open=False):
+                            gr.Markdown(
+                            """
+                            ```py
+                            rm -rf /content/trainer/diffusers/textual_inversion/output_dir/*
+                            ```
+                            """)
+                        rm_dreambooth_command = """rm -rf /content/trainer/diffusers/textual_inversion/output_dir/*"""
+                        rm_dreambooth = gr.Textbox(show_label=False, lines=1, value=rm_dreambooth_command)
+                        rm_dreambooth_out_text = gr.Textbox(show_label=False)
+                        btn_run_static = gr.Button("Remove Textual Inversion Output Directory")
+                        btn_run_static.click(run_live, inputs=rm_dreambooth, outputs=rm_dreambooth_out_text, show_progress=False)
         with gr.Tab("Train LoRA for WebUI"):
             with gr.Tab("Tag Images"):
                 with gr.Box():
