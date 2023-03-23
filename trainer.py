@@ -752,8 +752,7 @@ def launch():
                     --gradient_accumulation_steps=1 \\
                     --mixed_precision="fp16" \\
                     --gradient_checkpointing \\
-                    --enable_xformers_memory_efficient_attention \\
-                    --use_8bit_adam"""
+                    --enable_xformers_memory_efficient_attention"""
                     textual_inversion_command = gr.Textbox(show_label=False, lines=23, value=train_textual_inversion_command)
                     train_textual_inversion_out_text = gr.Textbox(show_label=False)
                     btn_train_textual_inversion_run_live = gr.Button("Train Textual Inversion")
