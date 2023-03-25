@@ -25,6 +25,14 @@ def timeout_test(second):
 
 pipe = None
 
+def test_text_to_image(output_dir, load_model, prompt, negative_prompt, num_inference_steps, guidance_scale):
+    global pipe
+    if load_model:
+        pipe = StableDiffusionPipeline.from_pretrained(output_dir, safety_checker=None, torch_dtype=torch.float16).to("cuda")
+        pipe.enable_xformers_memory_efficient_attention()
+    image = pipe(prompt, negative_prompt=negative_prompt, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale).images[0]
+    return image
+
 def test_dreambooth(output_dir, load_model, prompt, negative_prompt, num_inference_steps, guidance_scale):
     global pipe
     if load_model:
@@ -254,14 +262,14 @@ def launch():
                         with gr.Box():
                             image = gr.Image(show_label=False)
                         with gr.Box():
-                            output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/trainer/diffusers/dreambooth/output_dir")
+                            output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/trainer/diffusers/text_to_image/output_dir")
                             prompt = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
                             negative_prompt = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
                             steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=1)
                             scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
                             checkbox = gr.Checkbox(label="Load Model", value=True)
-                            btn_test_dreambooth = gr.Button("Generate image")
-                            btn_test_dreambooth.click(test_dreambooth, inputs=[output_dir, checkbox, prompt, negative_prompt, steps, scale], outputs=image)
+                            btn_test_text_to_image = gr.Button("Generate image")
+                            btn_test_text_to_image.click(test_text_to_image, inputs=[output_dir, checkbox, prompt, negative_prompt, steps, scale], outputs=image)
             with gr.Tab("Tools"):
                 with gr.Group():
                     with gr.Box():
@@ -272,11 +280,11 @@ def launch():
                             rm -rf /content/trainer/diffusers/textual_inversion/output_dir/*
                             ```
                             """)
-                        rm_dreambooth_command = """rm -rf /content/trainer/diffusers/textual_inversion/output_dir/*"""
-                        rm_dreambooth = gr.Textbox(show_label=False, lines=1, value=rm_dreambooth_command)
-                        rm_dreambooth_out_text = gr.Textbox(show_label=False)
+                        rm_text_to_image_command = """rm -rf /content/trainer/diffusers/textual_inversion/output_dir/*"""
+                        rm_text_to_image = gr.Textbox(show_label=False, lines=1, value=rm_text_to_image_command)
+                        rm_text_to_image_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Remove Textual Inversion Output Directory")
-                        btn_run_static.click(run_live, inputs=rm_dreambooth, outputs=rm_dreambooth_out_text, show_progress=False)
+                        btn_run_static.click(run_live, inputs=rm_text_to_image, outputs=rm_text_to_image_out_text, show_progress=False)
         with gr.Tab("Train Dreambooth for WebUI and Diffusers Lib"):
             with gr.Tab("Train"):
                 with gr.Box():
