@@ -224,7 +224,7 @@ def launch():
                         """)
                     train_text_to_image_command = """python -u /content/trainer/diffusers/text_to_image/train_text_to_image.py \\
                     --pretrained_model_name_or_path="/content/model"  \\
-                    --dataset_name="CompVis/stable-diffusion-v1-4" \\
+                    --dataset_name="camenduru/test" \\
                     --use_ema \\
                     --train_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
                     --output_dir="/content/trainer/diffusers/text_to_image/output_dir" \\
