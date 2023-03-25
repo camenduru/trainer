@@ -55,6 +55,31 @@ def launch():
         with gr.Tab("Train Text to Image WebUI and Diffusers Lib"):
             with gr.Tab("Train"):
                 with gr.Box():
+                    with gr.Accordion("Train Dreambooth Common Arguments", open=False):
+                        gr.Markdown(
+                        """
+                        ```py
+                        --pretrained_model_name_or_path="/content/model"  \\
+                        --dataset_name="CompVis/stable-diffusion-v1-4" \\
+                        --use_ema \\
+                        --train_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
+                        --output_dir="/content/trainer/diffusers/text_to_image/output_dir" \\
+                        --learning_rate=5e-6 \\
+                        --scale_lr \\
+                        --lr_scheduler="constant" \\
+                        --lr_warmup_steps=0 \\
+                        --max_train_steps=3000 \\
+                        --resolution=512 \\
+                        --center_crop \\
+                        --random_flip \\
+                        --train_batch_size=1 \\
+                        --gradient_accumulation_steps=1 \\
+                        --max_grad_norm=1 \\
+                        --mixed_precision="fp16" \\
+                        --gradient_checkpointing \\
+                        --enable_xformers_memory_efficient_attention \\
+                        ```
+                        """)
                     with gr.Accordion("Train Text to Image Common Arguments", open=False):
                         gr.Markdown(
                         """
