@@ -52,6 +52,69 @@ def launch():
     # strings.en["SHARE_LINK_MESSAGE"] = f"WebUI Colab URL: {colab_url}"
     strings.en["SHARE_LINK_MESSAGE"] = f"😊"
     with trainer:
+        with gr.Tab("Train Text to Image WebUI and Diffusers Lib"):
+            with gr.Tab("Train"):
+                with gr.Box():
+                    with gr.Accordion("Train Text to Image Common Arguments", open=False):
+                        gr.Markdown(
+                        """
+                        ```py
+
+                        ```
+                        """)
+                    train_text_to_image_command = """python -u /content/trainer/diffusers/text_to_image/train_text_to_image.py \\
+                    --pretrained_model_name_or_path="/content/model"  \\
+                    --dataset_name="CompVis/stable-diffusion-v1-4" \\
+                    --use_ema \\
+                    --train_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
+                    --output_dir="/content/trainer/diffusers/text_to_image/output_dir" \\
+                    --learning_rate=5e-6 \\
+                    --scale_lr \\
+                    --lr_scheduler="constant" \\
+                    --lr_warmup_steps=0 \\
+                    --max_train_steps=3000 \\
+                    --resolution=512 \\
+                    --center_crop \\
+                    --random_flip \\
+                    --train_batch_size=1 \\
+                    --gradient_accumulation_steps=1 \\
+                    --max_grad_norm=1 \\
+                    --mixed_precision="fp16" \\
+                    --gradient_checkpointing \\
+                    --enable_xformers_memory_efficient_attention"""
+                    text_to_image_command = gr.Textbox(show_label=False, lines=23, value=train_text_to_image_command)
+                    train_text_to_image_out_text = gr.Textbox(show_label=False)
+                    btn_train_text_to_image_run_live = gr.Button("Train Textual Inversion")
+                    btn_train_text_to_image_run_live.click(run_live, inputs=text_to_image_command, outputs=train_text_to_image_out_text, show_progress=False)
+            with gr.Tab("Test"):
+                with gr.Group():
+                    with gr.Row():
+                        with gr.Box():
+                            image = gr.Image(show_label=False)
+                        with gr.Box():
+                            output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/trainer/diffusers/dreambooth/output_dir")
+                            prompt = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
+                            negative_prompt = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
+                            steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=1)
+                            scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
+                            checkbox = gr.Checkbox(label="Load Model", value=True)
+                            btn_test_dreambooth = gr.Button("Generate image")
+                            btn_test_dreambooth.click(test_dreambooth, inputs=[output_dir, checkbox, prompt, negative_prompt, steps, scale], outputs=image)
+            with gr.Tab("Tools"):
+                with gr.Group():
+                    with gr.Box():
+                        with gr.Accordion("Remove Textual Inversion Output Directory", open=False):
+                            gr.Markdown(
+                            """
+                            ```py
+                            rm -rf /content/trainer/diffusers/textual_inversion/output_dir/*
+                            ```
+                            """)
+                        rm_dreambooth_command = """rm -rf /content/trainer/diffusers/textual_inversion/output_dir/*"""
+                        rm_dreambooth = gr.Textbox(show_label=False, lines=1, value=rm_dreambooth_command)
+                        rm_dreambooth_out_text = gr.Textbox(show_label=False)
+                        btn_run_static = gr.Button("Remove Textual Inversion Output Directory")
+                        btn_run_static.click(run_live, inputs=rm_dreambooth, outputs=rm_dreambooth_out_text, show_progress=False)
         with gr.Tab("Train Dreambooth for WebUI and Diffusers Lib"):
             with gr.Tab("Train"):
                 with gr.Box():
