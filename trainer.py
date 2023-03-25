@@ -64,11 +64,11 @@ def launch():
                         --use_ema \\
                         --train_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
                         --output_dir="/content/trainer/diffusers/text_to_image/output_dir" \\
-                        --learning_rate=5e-6 \\
+                        --learning_rate=1e-6 \\
                         --scale_lr \\
                         --lr_scheduler="constant" \\
                         --lr_warmup_steps=0 \\
-                        --max_train_steps=3000 \\
+                        --max_train_steps=5288 \\
                         --resolution=512 \\
                         --center_crop \\
                         --random_flip \\
@@ -78,6 +78,7 @@ def launch():
                         --mixed_precision="fp16" \\
                         --gradient_checkpointing \\
                         --enable_xformers_memory_efficient_attention \\
+                        --use_8bit_adam \\
                         ```
                         """)
                     with gr.Accordion("Train Text to Image Common Arguments", open=False):
@@ -228,11 +229,11 @@ def launch():
                     --use_ema \\
                     --train_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
                     --output_dir="/content/trainer/diffusers/text_to_image/output_dir" \\
-                    --learning_rate=5e-6 \\
+                    --learning_rate=1e-6 \\
                     --scale_lr \\
                     --lr_scheduler="constant" \\
                     --lr_warmup_steps=0 \\
-                    --max_train_steps=3000 \\
+                    --max_train_steps=5288 \\
                     --resolution=512 \\
                     --center_crop \\
                     --random_flip \\
@@ -241,7 +242,8 @@ def launch():
                     --max_grad_norm=1 \\
                     --mixed_precision="fp16" \\
                     --gradient_checkpointing \\
-                    --enable_xformers_memory_efficient_attention"""
+                    --enable_xformers_memory_efficient_attention \\
+                    --use_8bit_adam"""
                     text_to_image_command = gr.Textbox(show_label=False, lines=23, value=train_text_to_image_command)
                     train_text_to_image_out_text = gr.Textbox(show_label=False)
                     btn_train_text_to_image_run_live = gr.Button("Train Textual Inversion")
