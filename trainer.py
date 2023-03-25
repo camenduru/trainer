@@ -55,12 +55,12 @@ def launch():
         with gr.Tab("Train Text to Image WebUI and Diffusers Lib"):
             with gr.Tab("Train"):
                 with gr.Box():
-                    with gr.Accordion("Train Dreambooth Common Arguments", open=False):
+                    with gr.Accordion("Train Text to Image Common Arguments", open=False):
                         gr.Markdown(
                         """
                         ```py
                         --pretrained_model_name_or_path="/content/model"  \\
-                        --dataset_name="CompVis/stable-diffusion-v1-4" \\
+                        --dataset_name="camenduru/test" \\
                         --use_ema \\
                         --train_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
                         --output_dir="/content/trainer/diffusers/text_to_image/output_dir" \\
