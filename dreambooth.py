@@ -3,58 +3,9 @@ import gradio as gr
 from subprocess import getoutput
 from diffusers import StableDiffusionPipeline
 from gradio import strings
+from trainer import Trainer
 
-class Dreambooth:
-    def __init__(self):
-        pipe = None
-
-    def run_live(command):
-      with os.popen(command) as pipe:
-        for line in pipe:
-          line = line.rstrip()
-          print(line)
-          yield line
-
-    def run_static(command):
-        out = getoutput(f"{command}")
-        print(out)
-        return out
-
-    def timeout_test(second):
-        start_time = time.time()
-        while time.time() - start_time < int(second):
-            pass
-        msg = "🥳"
-        return msg
-
-    def test_text_to_image(output_dir, load_model, prompt, negative_prompt, num_inference_steps, guidance_scale):
-        if load_model:
-            global pipe
-            pipe = StableDiffusionPipeline.from_pretrained(output_dir, safety_checker=None, torch_dtype=torch.float16).to("cuda")
-            pipe.enable_xformers_memory_efficient_attention()
-        image = pipe(prompt, negative_prompt=negative_prompt, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale).images[0]
-        return image
-
-    def test_dreambooth(output_dir, load_model, prompt, negative_prompt, num_inference_steps, guidance_scale):
-        if load_model:
-            global pipe
-            pipe = StableDiffusionPipeline.from_pretrained(output_dir, safety_checker=None, torch_dtype=torch.float16).to("cuda")
-            pipe.enable_xformers_memory_efficient_attention()
-        image = pipe(prompt, negative_prompt=negative_prompt, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale).images[0]
-        return image
-
-    def test_lora(model_dir, load_model, output_dir, prompt, negative_prompt, num_inference_steps, guidance_scale):
-        if load_model:
-            global pipe
-            pipe = StableDiffusionPipeline.from_pretrained(model_dir, safety_checker=None, torch_dtype=torch.float16).to("cuda")
-            pipe.enable_xformers_memory_efficient_attention()
-            pipe.unet.load_attn_procs(output_dir)
-        image = pipe(prompt, negative_prompt=negative_prompt, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale).images[0]
-        return image
-
-    def clear_out_text():
-        return ""
-
+class Dreambooth(Trainer):
     def tab():
         with gr.Tab("Train Dreambooth for WebUI and Diffusers Lib"):
             with gr.Tab("Train"):
@@ -305,7 +256,7 @@ class Dreambooth:
                     dreambooth_command = gr.Textbox(show_label=False, lines=23, value=train_dreambooth_command)
                     train_dreambooth_out_text = gr.Textbox(show_label=False)
                     btn_train_dreambooth_run_live = gr.Button("Train Dreambooth")
-                    btn_train_dreambooth_run_live.click(Dreambooth.run_live, inputs=dreambooth_command, outputs=train_dreambooth_out_text, show_progress=False)
+                    btn_train_dreambooth_run_live.click(super().run_live, inputs=dreambooth_command, outputs=train_dreambooth_out_text, show_progress=False)
             with gr.Tab("Test"):
                 with gr.Group():
                     with gr.Row():
@@ -319,7 +270,7 @@ class Dreambooth:
                             scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
                             checkbox = gr.Checkbox(label="Load Model", value=True)
                             btn_test_dreambooth = gr.Button("Generate image")
-                            btn_test_dreambooth.click(Dreambooth.test_dreambooth, inputs=[output_dir, checkbox, prompt, negative_prompt, steps, scale], outputs=image)
+                            btn_test_dreambooth.click(super().test_dreambooth, inputs=[output_dir, checkbox, prompt, negative_prompt, steps, scale], outputs=image)
             with gr.Tab("Convert"):
                 with gr.Group():
                     with gr.Box():
@@ -352,7 +303,7 @@ class Dreambooth:
                         convert_dreambooth = gr.Textbox(show_label=False, lines=3, value=convert_command)
                         convert_dreambooth_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Convert Diffusers to Original Stable Diffusion")
-                        btn_run_static.click(Dreambooth.run_live, inputs=convert_dreambooth, outputs=convert_dreambooth_out_text, show_progress=False)
+                        btn_run_static.click(super().run_live, inputs=convert_dreambooth, outputs=convert_dreambooth_out_text, show_progress=False)
             with gr.Tab("Tools"):
                 with gr.Group():
                     with gr.Box():
@@ -367,4 +318,4 @@ class Dreambooth:
                         rm_dreambooth = gr.Textbox(show_label=False, lines=1, value=rm_dreambooth_command)
                         rm_dreambooth_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Remove Dreambooth Output Directory")
-                        btn_run_static.click(Dreambooth.run_live, inputs=rm_dreambooth, outputs=rm_dreambooth_out_text, show_progress=False)
+                        btn_run_static.click(super().run_live, inputs=rm_dreambooth, outputs=rm_dreambooth_out_text, show_progress=False)
