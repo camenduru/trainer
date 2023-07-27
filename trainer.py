@@ -5,7 +5,8 @@ from gradio import strings
 from dreambooth import Dreambooth
 from text_to_image import TextToImage
 from textual_inversion import TextualInversion
-# from lorad import LoraD
+from lora_dxl import LoraDXL
+# from lora_d import LoraD
 # from lora import Lora
 
 trainer = gr.Blocks(title="Trainer")
@@ -31,6 +32,7 @@ def launch():
         TextToImage.tab()
         Dreambooth.tab()
         TextualInversion.tab()
+        LoraDXL.tab()
         # LoraD.tab()
         # Lora.tab()
     trainer.queue().launch(debug=True, share=True, inline=False)
