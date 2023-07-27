@@ -11,7 +11,7 @@ class LoraD():
                         """
                         ```py
                         --pretrained_model_name_or_path="/content/model"  \\
-                        --instance_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
+                        --instance_data_dir="/content/images" \\
                         --output_dir="/content/trainer/diffusers/lora/output_dir" \\
                         --learning_rate=5e-6 \\
                         --max_train_steps=650 \\
@@ -190,7 +190,7 @@ class LoraD():
                         """)
                     train_lora_command = """python -u /content/trainer/diffusers/lora/train_dreambooth_lora.py \\
                     --pretrained_model_name_or_path="/content/model"  \\
-                    --instance_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
+                    --instance_data_dir="/content/images" \\
                     --output_dir="/content/trainer/diffusers/lora/output_dir" \\
                     --learning_rate=5e-6 \\
                     --max_train_steps=650 \\

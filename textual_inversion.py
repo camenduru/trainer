@@ -11,7 +11,7 @@ class TextualInversion():
                         """
                         ```py
                         --pretrained_model_name_or_path="/content/model"  \\
-                        --instance_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
+                        --instance_data_dir="/content/images" \\
                         --output_dir="/content/trainer/diffusers/dreambooth/output_dir" \\
                         --learning_rate=5e-6 \\
                         --max_train_steps=650 \\
@@ -170,7 +170,7 @@ class TextualInversion():
                         """)
                     train_textual_inversion_command = """python -u /content/trainer/diffusers/textual_inversion/textual_inversion.py \\
                     --pretrained_model_name_or_path="/content/model"  \\
-                    --train_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
+                    --train_data_dir="/content/images" \\
                     --learnable_property="object" \\
                     --output_dir="/content/trainer/diffusers/textual_inversion/output_dir" \\
                     --placeholder_token="<parkminyoung>" \\

@@ -13,7 +13,7 @@ class TextToImage():
                         --pretrained_model_name_or_path="/content/model"  \\
                         --dataset_name="camenduru/test" \\
                         --use_ema \\
-                        --train_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
+                        --train_data_dir="/content/images" \\
                         --output_dir="/content/trainer/diffusers/text_to_image/output_dir" \\
                         --learning_rate=1e-6 \\
                         --scale_lr \\
@@ -197,7 +197,7 @@ class TextToImage():
                     --pretrained_model_name_or_path="/content/model"  \\
                     --dataset_name="camenduru/test" \\
                     --use_ema \\
-                    --train_data_dir="/content/drive/MyDrive/AI/training/parkminyoung" \\
+                    --train_data_dir="/content/images" \\
                     --output_dir="/content/trainer/diffusers/text_to_image/output_dir" \\
                     --learning_rate=1e-6 \\
                     --scale_lr \\
