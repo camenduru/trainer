@@ -15,7 +15,7 @@ class LoraD():
                         --output_dir="/content/trainer/diffusers/lora/output_dir" \\
                         --learning_rate=5e-6 \\
                         --max_train_steps=650 \\
-                        --instance_prompt="parkminyoung" \\
+                        --instance_prompt=""⚠ INSTANCE PROMPT"" \\
                         --resolution=512 \\
                         --center_crop \\
                         --train_batch_size=1 \\
@@ -194,7 +194,7 @@ class LoraD():
                     --output_dir="/content/trainer/diffusers/lora/output_dir" \\
                     --learning_rate=5e-6 \\
                     --max_train_steps=650 \\
-                    --instance_prompt="parkminyoung" \\
+                    --instance_prompt=""⚠ INSTANCE PROMPT"" \\
                     --resolution=512 \\
                     --center_crop \\
                     --train_batch_size=1 \\
