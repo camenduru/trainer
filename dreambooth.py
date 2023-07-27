@@ -251,7 +251,7 @@ class Dreambooth():
                     --seed=69 \\
                     --num_class_images=12 \\
                     --offset_noise"""
-                    dreambooth_command = gr.Textbox(show_label=False, lines=23, value=train_dreambooth_command)
+                    dreambooth_command = gr.Textbox(show_label=False, lines=24, value=train_dreambooth_command)
                     train_dreambooth_out_text = gr.Textbox(show_label=False)
                     btn_train_dreambooth_run_live = gr.Button("Train Dreambooth")
                     btn_train_dreambooth_run_live.click(Shared.run_live, inputs=dreambooth_command, outputs=train_dreambooth_out_text, show_progress=False)
