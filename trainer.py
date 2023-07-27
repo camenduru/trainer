@@ -17,7 +17,8 @@ def launch():
     with trainer:
         with gr.Tab("Upload Images"):
             uploaded_files = gr.File(file_count="directory", file_types=["image"])
-            print(uploaded_files)
+            os.mkdir('/content/images')
+            shutil.copy(uploaded_files, '/content/images')
         TextToImage.tab()
         Dreambooth.tab()
         TextualInversion.tab()
