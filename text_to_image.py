@@ -6,7 +6,7 @@ from gradio import strings
 
 class TextToImage:
     def __init__(self):
-        self.self.pipe = None
+        self.pipe = None
 
     def run_live(command):
       with os.popen(command) as self.pipe:
