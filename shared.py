@@ -1,7 +1,6 @@
 import os, time, torch
 from subprocess import getoutput
 from diffusers import StableDiffusionPipeline
-from gradio import strings
 
 class Shared:
     def __init__(self):
