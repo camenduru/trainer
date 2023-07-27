@@ -3,7 +3,7 @@ from shared import Shared
 
 class LoraDXL():
     def tab():
-        with gr.Tab("Train LoRA for Diffusers Lib"):
+        with gr.Tab("Train LoRA SDXL for Diffusers Lib"):
             with gr.Tab("Train"):
                 with gr.Box():
                     with gr.Accordion("Train Lora Common Arguments", open=False):

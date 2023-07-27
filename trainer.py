@@ -6,7 +6,7 @@ from dreambooth import Dreambooth
 from text_to_image import TextToImage
 from textual_inversion import TextualInversion
 from lora_d_xl import LoraDXL
-# from lora_d import LoraD
+from lora_d import LoraD
 # from lora import Lora
 
 trainer = gr.Blocks(title="Trainer")
@@ -33,7 +33,7 @@ def launch():
         Dreambooth.tab()
         TextualInversion.tab()
         LoraDXL.tab()
-        # LoraD.tab()
+        LoraD.tab()
         # Lora.tab()
     trainer.queue().launch(debug=True, share=True, inline=False)
 
