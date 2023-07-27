@@ -19,7 +19,8 @@ def launch():
         with gr.Tab("Upload Images"):
             uploaded_files = gr.File(file_count="directory", file_types=["image"])
             os.mkdir('/content/images')
-            shutil.copy(uploaded_files, '/content/images')
+            for uploaded_file in uploaded_files:
+                shutil.copy(uploaded_file.name, '/content/images')
         TextToImage.tab()
         Dreambooth.tab()
         TextualInversion.tab()
