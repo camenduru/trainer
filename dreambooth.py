@@ -33,6 +33,7 @@ class Dreambooth():
                         --seed=69 \\
                         --num_class_images=12 \\
                         --offset_noise \\
+                        --train_text_encoder \\
                         ```
                         """)
                     with gr.Accordion("Train Dreambooth All Arguments", open=False):
@@ -250,8 +251,9 @@ class Dreambooth():
                     --class_prompt="person" \\
                     --seed=69 \\
                     --num_class_images=12 \\
-                    --offset_noise"""
-                    dreambooth_command = gr.Textbox(show_label=False, lines=24, value=train_dreambooth_command)
+                    --offset_noise \\
+                    --train_text_encoder"""
+                    dreambooth_command = gr.Textbox(show_label=False, lines=25, value=train_dreambooth_command)
                     train_dreambooth_out_text = gr.Textbox(show_label=False)
                     btn_train_dreambooth_run_live = gr.Button("Train Dreambooth")
                     btn_train_dreambooth_run_live.click(Shared.run_live, inputs=dreambooth_command, outputs=train_dreambooth_out_text, show_progress=False)

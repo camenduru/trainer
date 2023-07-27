@@ -32,6 +32,7 @@ class LoraD():
                         --class_prompt="person" \\
                         --seed=69 \\
                         --num_class_images=12 \\
+                        --train_text_encoder \\
                         ```
                         """)
                     with gr.Accordion("Train Lora All Arguments", open=False):
@@ -221,7 +222,8 @@ class LoraD():
                     --mixed_precision="fp16" \\
                     --gradient_checkpointing \\
                     --enable_xformers_memory_efficient_attention \\
-                    --use_8bit_adam"""
+                    --use_8bit_adam \\
+                    --train_text_encoder"""
                     lora_command = gr.Textbox(show_label=False, lines=16, value=train_lora_command)
                     train_lora_out_text = gr.Textbox(show_label=False)
                     btn_train_lora_run_live = gr.Button("Train Lora")
