@@ -37,8 +37,8 @@ class Shared:
         if load_model:
             global pipe
             pipe = StableDiffusionPipeline.from_pretrained(model_dir, safety_checker=None, torch_dtype=torch.float16).to("cuda")
+            pipe.load_lora_weights(output_dir)
             pipe.enable_xformers_memory_efficient_attention()
-            pipe.unet.load_attn_procs(output_dir)
         image = pipe(prompt, negative_prompt=negative_prompt, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale).images[0]
         return image
 
