@@ -266,7 +266,7 @@ class Dreambooth():
                             scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
                             checkbox = gr.Checkbox(label="Load Model", value=True)
                             btn_test_dreambooth = gr.Button("Generate image")
-                            btn_test_dreambooth.click(Shared.test_dreambooth, inputs=[output_dir, checkbox, prompt, negative_prompt, steps, scale], outputs=image)
+                            btn_test_dreambooth.click(Shared.test_text_to_image, inputs=[output_dir, checkbox, prompt, negative_prompt, steps, scale], outputs=image)
             with gr.Tab("Convert"):
                 with gr.Group():
                     with gr.Box():
