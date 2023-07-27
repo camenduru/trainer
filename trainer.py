@@ -20,8 +20,8 @@ def launch():
             uploaded_files = gr.File(file_count="directory", file_types=["image"])
             if not os.path.exists('/content/images'):
                 os.mkdir('/content/images')
-            for uploaded_file in uploaded_files:
-                shutil.copy(uploaded_file.name, '/content/images')
+            # for uploaded_file in uploaded_files:
+            shutil.copy(uploaded_files.name, '/content/images')
         TextToImage.tab()
         Dreambooth.tab()
         TextualInversion.tab()
