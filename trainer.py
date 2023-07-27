@@ -25,13 +25,8 @@ def launch():
     strings.en["SHARE_LINK_MESSAGE"] = f"😊"
     with trainer:
         with gr.Tab("Upload Images"):
-            # uploaded_files = gr.File(file_count="directory", file_types=["image"])
-            # if not os.path.exists('/content/images'):
-            #     os.mkdir('/content/images')
-            # for uploaded_file in uploaded_files:
-            #     shutil.copy(uploaded_file, '/content/images/')
             file_output = gr.File()
-            upload_button = gr.UploadButton(file_types=["image"], file_count="multiple")
+            upload_button = gr.UploadButton("Upload Images", file_types=["image"], file_count="multiple")
             upload_button.upload(upload_file, upload_button, file_output)
         TextToImage.tab()
         Dreambooth.tab()
