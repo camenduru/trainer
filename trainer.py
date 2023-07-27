@@ -539,7 +539,9 @@ def launch():
                             """)
                         convert_command = """python /content/trainer/diffusers/dreambooth/convert_diffusers_to_original_stable_diffusion.py \\
                         --model_path /content/trainer/diffusers/dreambooth/output_dir \\
-                        --checkpoint_path /content/stable-diffusion-webui/models/Stable-diffusion/parkminyoung.ckpt"""
+                        --checkpoint_path /content/trainer/diffusers/dreambooth/output_dir/parkminyoung.safetensors \\
+                        --use_safetensors \\
+                        --half"""
                         convert_dreambooth = gr.Textbox(show_label=False, lines=3, value=convert_command)
                         convert_dreambooth_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Convert Diffusers to Original Stable Diffusion")
