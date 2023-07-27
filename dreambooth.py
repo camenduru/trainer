@@ -15,7 +15,7 @@ class Dreambooth():
                         --output_dir="/content/trainer/diffusers/dreambooth/output_dir" \\
                         --learning_rate=5e-6 \\
                         --max_train_steps=650 \\
-                        --instance_prompt="parkminyoung" \\
+                        --instance_prompt="instance_prompt" \\
                         --resolution=512 \\
                         --center_crop \\
                         --train_batch_size=1 \\
@@ -232,7 +232,7 @@ class Dreambooth():
                     --output_dir="/content/trainer/diffusers/dreambooth/output_dir" \\
                     --learning_rate=5e-6 \\
                     --max_train_steps=650 \\
-                    --instance_prompt="parkminyoung" \\
+                    --instance_prompt="instance_prompt" \\
                     --resolution=512 \\
                     --center_crop \\
                     --train_batch_size=1 \\
@@ -275,7 +275,7 @@ class Dreambooth():
                             """
                             ```py
                             --model_path /content/trainer/diffusers/dreambooth/output_dir \\
-                            --checkpoint_path /content/stable-diffusion-webui/models/Stable-diffusion/parkminyoung.ckpt
+                            --checkpoint_path /content/stable-diffusion-webui/models/Stable-diffusion/instance_prompt.ckpt
                             ```
                             """)
                         with gr.Accordion("Convert Diffusers to Original Stable Diffusion All Arguments", open=False):
@@ -293,7 +293,7 @@ class Dreambooth():
                             """)
                         convert_command = """python /content/trainer/diffusers/dreambooth/convert_diffusers_to_original_stable_diffusion.py \\
                         --model_path /content/trainer/diffusers/dreambooth/output_dir \\
-                        --checkpoint_path /content/trainer/diffusers/dreambooth/output_dir/parkminyoung.safetensors \\
+                        --checkpoint_path /content/trainer/diffusers/dreambooth/output_dir/instance_prompt.safetensors \\
                         --use_safetensors \\
                         --half"""
                         convert_dreambooth = gr.Textbox(show_label=False, lines=5, value=convert_command)
