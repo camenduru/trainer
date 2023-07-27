@@ -5,7 +5,6 @@ from dreambooth import Dreambooth
 from text_to_image import TextToImage
 from textual_inversion import TextualInversion
 from lora import Lora
-from trainer import Trainer
 
 class Trainer:
     def __init__(self):
