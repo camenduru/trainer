@@ -32,6 +32,7 @@ class Dreambooth():
                         --class_prompt="person" \\
                         --seed=69 \\
                         --num_class_images=12 \\
+                        --offset_noise \\
                         ```
                         """)
                     with gr.Accordion("Train Dreambooth All Arguments", open=False):
@@ -248,7 +249,8 @@ class Dreambooth():
                     --sample_batch_size=2 \\
                     --class_prompt="person" \\
                     --seed=69 \\
-                    --num_class_images=12"""
+                    --num_class_images=12 \\
+                    --offset_noise"""
                     dreambooth_command = gr.Textbox(show_label=False, lines=23, value=train_dreambooth_command)
                     train_dreambooth_out_text = gr.Textbox(show_label=False)
                     btn_train_dreambooth_run_live = gr.Button("Train Dreambooth")
