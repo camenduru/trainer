@@ -40,124 +40,132 @@ class TextualInversion():
                         ```py
                         -h, --help            show this help message and exit
                         --save_steps SAVE_STEPS
-                                                Save learned_embeds.bin every X updates steps.
-                        --only_save_embeds    Save only the embeddings for the new concept.
+                                              Save learned_embeds.bin every X updates steps.
+                        --save_as_full_pipeline
+                                              Save the complete stable diffusion pipeline.
+                        --num_vectors NUM_VECTORS
+                                              How many textual inversion vectors shall be used to
+                                              learn the concept.
                         --pretrained_model_name_or_path PRETRAINED_MODEL_NAME_OR_PATH
-                                                Path to pretrained model or model identifier from
-                                                huggingface.co/models.
+                                              Path to pretrained model or model identifier from
+                                              huggingface.co/models.
                         --revision REVISION   Revision of pretrained model identifier from
-                                                huggingface.co/models.
+                                              huggingface.co/models.
                         --tokenizer_name TOKENIZER_NAME
-                                                Pretrained tokenizer name or path if not the same as
-                                                model_name
+                                              Pretrained tokenizer name or path if not the same as
+                                              model_name
                         --train_data_dir TRAIN_DATA_DIR
-                                                A folder containing the training data.
+                                              A folder containing the training data.
                         --placeholder_token PLACEHOLDER_TOKEN
-                                                A token to use as a placeholder for the concept.
+                                              A token to use as a placeholder for the concept.
                         --initializer_token INITIALIZER_TOKEN
-                                                A token to use as initializer word.
+                                              A token to use as initializer word.
                         --learnable_property LEARNABLE_PROPERTY
-                                                Choose between 'object' and 'style'
+                                              Choose between 'object' and 'style'
                         --repeats REPEATS     How many times to repeat the training data.
                         --output_dir OUTPUT_DIR
-                                                The output directory where the model predictions and
-                                                checkpoints will be written.
+                                              The output directory where the model predictions and
+                                              checkpoints will be written.
                         --seed SEED           A seed for reproducible training.
                         --resolution RESOLUTION
-                                                The resolution for input images, all the images in the
-                                                train/validation dataset will be resized to this
-                                                resolution
+                                              The resolution for input images, all the images in the
+                                              train/validation dataset will be resized to this
+                                              resolution
                         --center_crop         Whether to center crop images before resizing to
-                                                resolution.
+                                              resolution.
                         --train_batch_size TRAIN_BATCH_SIZE
-                                                Batch size (per device) for the training dataloader.
+                                              Batch size (per device) for the training dataloader.
                         --num_train_epochs NUM_TRAIN_EPOCHS
                         --max_train_steps MAX_TRAIN_STEPS
-                                                Total number of training steps to perform. If
-                                                provided, overrides num_train_epochs.
+                                              Total number of training steps to perform. If
+                                              provided, overrides num_train_epochs.
                         --gradient_accumulation_steps GRADIENT_ACCUMULATION_STEPS
-                                                Number of updates steps to accumulate before
-                                                performing a backward/update pass.
+                                              Number of updates steps to accumulate before
+                                              performing a backward/update pass.
                         --gradient_checkpointing
-                                                Whether or not to use gradient checkpointing to save
-                                                memory at the expense of slower backward pass.
+                                              Whether or not to use gradient checkpointing to save
+                                              memory at the expense of slower backward pass.
                         --learning_rate LEARNING_RATE
-                                                Initial learning rate (after the potential warmup
-                                                period) to use.
+                                              Initial learning rate (after the potential warmup
+                                              period) to use.
                         --scale_lr            Scale the learning rate by the number of GPUs,
-                                                gradient accumulation steps, and batch size.
+                                              gradient accumulation steps, and batch size.
                         --lr_scheduler LR_SCHEDULER
-                                                The scheduler type to use. Choose between ["linear",
-                                                "cosine", "cosine_with_restarts", "polynomial",
-                                                "constant", "constant_with_warmup"]
+                                              The scheduler type to use. Choose between ["linear",
+                                              "cosine", "cosine_with_restarts", "polynomial",
+                                              "constant", "constant_with_warmup"]
                         --lr_warmup_steps LR_WARMUP_STEPS
-                                                Number of steps for the warmup in the lr scheduler.
+                                              Number of steps for the warmup in the lr scheduler.
+                        --lr_num_cycles LR_NUM_CYCLES
+                                              Number of hard resets of the lr in
+                                              cosine_with_restarts scheduler.
                         --dataloader_num_workers DATALOADER_NUM_WORKERS
-                                                Number of subprocesses to use for data loading. 0
-                                                means that the data will be loaded in the main
-                                                process.
+                                              Number of subprocesses to use for data loading. 0
+                                              means that the data will be loaded in the main
+                                              process.
                         --adam_beta1 ADAM_BETA1
-                                                The beta1 parameter for the Adam optimizer.
+                                              The beta1 parameter for the Adam optimizer.
                         --adam_beta2 ADAM_BETA2
-                                                The beta2 parameter for the Adam optimizer.
+                                              The beta2 parameter for the Adam optimizer.
                         --adam_weight_decay ADAM_WEIGHT_DECAY
-                                                Weight decay to use.
+                                              Weight decay to use.
                         --adam_epsilon ADAM_EPSILON
-                                                Epsilon value for the Adam optimizer
+                                              Epsilon value for the Adam optimizer
                         --push_to_hub         Whether or not to push the model to the Hub.
                         --hub_token HUB_TOKEN
-                                                The token to use to push to the Model Hub.
+                                              The token to use to push to the Model Hub.
                         --hub_model_id HUB_MODEL_ID
-                                                The name of the repository to keep in sync with the
-                                                local `output_dir`.
+                                              The name of the repository to keep in sync with the
+                                              local `output_dir`.
                         --logging_dir LOGGING_DIR
-                                                [TensorBoard](https://www.tensorflow.org/tensorboard)
-                                                log directory. Will default to
-                                                *output_dir/runs/**CURRENT_DATETIME_HOSTNAME***.
+                                              [TensorBoard](https://www.tensorflow.org/tensorboard)
+                                              log directory. Will default to
+                                              *output_dir/runs/**CURRENT_DATETIME_HOSTNAME***.
                         --mixed_precision {no,fp16,bf16}
-                                                Whether to use mixed precision. Choosebetween fp16 and
-                                                bf16 (bfloat16). Bf16 requires PyTorch >= 1.10.and an
-                                                Nvidia Ampere GPU.
+                                              Whether to use mixed precision. Choosebetween fp16 and
+                                              bf16 (bfloat16). Bf16 requires PyTorch >= 1.10.and an
+                                              Nvidia Ampere GPU.
                         --allow_tf32          Whether or not to allow TF32 on Ampere GPUs. Can be
-                                                used to speed up training. For more information, see h
-                                                ttps://pytorch.org/docs/stable/notes/cuda.html#tensorf
-                                                loat-32-tf32-on-ampere-devices
+                                              used to speed up training. For more information, see h
+                                              ttps://pytorch.org/docs/stable/notes/cuda.html#tensorf
+                                              loat-32-tf32-on-ampere-devices
                         --report_to REPORT_TO
-                                                The integration to report the results and logs to.
-                                                Supported platforms are `"tensorboard"` (default),
-                                                `"wandb"` and `"comet_ml"`. Use `"all"` to report to
-                                                all integrations.
+                                              The integration to report the results and logs to.
+                                              Supported platforms are `"tensorboard"` (default),
+                                              `"wandb"` and `"comet_ml"`. Use `"all"` to report to
+                                              all integrations.
                         --validation_prompt VALIDATION_PROMPT
-                                                A prompt that is used during validation to verify that
-                                                the model is learning.
+                                              A prompt that is used during validation to verify that
+                                              the model is learning.
                         --num_validation_images NUM_VALIDATION_IMAGES
-                                                Number of images that should be generated during
-                                                validation with `validation_prompt`.
+                                              Number of images that should be generated during
+                                              validation with `validation_prompt`.
+                        --validation_steps VALIDATION_STEPS
+                                              Run validation every X steps. Validation consists of
+                                              running the prompt `args.validation_prompt` multiple
+                                              times: `args.num_validation_images` and logging the
+                                              images.
                         --validation_epochs VALIDATION_EPOCHS
-                                                Run validation every X epochs. Validation consists of
-                                                running the prompt `args.validation_prompt` multiple
-                                                times: `args.num_validation_images` and logging the
-                                                images.
+                                              Deprecated in favor of validation_steps. Run
+                                              validation every X epochs. Validation consists of
+                                              running the prompt `args.validation_prompt` multiple
+                                              times: `args.num_validation_images` and logging the
+                                              images.
                         --local_rank LOCAL_RANK
-                                                For distributed training: local_rank
+                                              For distributed training: local_rank
                         --checkpointing_steps CHECKPOINTING_STEPS
-                                                Save a checkpoint of the training state every X
-                                                updates. These checkpoints are only suitable for
-                                                resuming training using `--resume_from_checkpoint`.
+                                              Save a checkpoint of the training state every X
+                                              updates. These checkpoints are only suitable for
+                                              resuming training using `--resume_from_checkpoint`.
                         --checkpoints_total_limit CHECKPOINTS_TOTAL_LIMIT
-                                                Max number of checkpoints to store. Passed as
-                                                `total_limit` to the `Accelerator`
-                                                `ProjectConfiguration`. See Accelerator::save_state ht
-                                                tps://huggingface.co/docs/accelerate/package_reference
-                                                /accelerator#accelerate.Accelerator.save_state for
-                                                more docs
+                                              Max number of checkpoints to store.
                         --resume_from_checkpoint RESUME_FROM_CHECKPOINT
-                                                Whether training should be resumed from a previous
-                                                checkpoint. Use a path saved by
-                                                `--checkpointing_steps`, or `"latest"` to
-                                                automatically select the last available checkpoint.
+                                              Whether training should be resumed from a previous
+                                              checkpoint. Use a path saved by
+                                              `--checkpointing_steps`, or `"latest"` to
+                                              automatically select the last available checkpoint.
                         --enable_xformers_memory_efficient_attention
-                                                Whether or not to use xformers.
+                                              Whether or not to use xformers.
                         ```
                         """)
                     train_textual_inversion_command = """python -u /content/trainer/diffusers/textual_inversion/textual_inversion.py \\
