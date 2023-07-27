@@ -1,7 +1,7 @@
 import gradio as gr
 from shared import Shared
 
-class Dreambooth(Shared):
+class Dreambooth():
     def tab():
         with gr.Tab("Train Dreambooth for WebUI and Diffusers Lib"):
             with gr.Tab("Train"):
@@ -252,7 +252,7 @@ class Dreambooth(Shared):
                     dreambooth_command = gr.Textbox(show_label=False, lines=23, value=train_dreambooth_command)
                     train_dreambooth_out_text = gr.Textbox(show_label=False)
                     btn_train_dreambooth_run_live = gr.Button("Train Dreambooth")
-                    btn_train_dreambooth_run_live.click(super().run_live, inputs=dreambooth_command, outputs=train_dreambooth_out_text, show_progress=False)
+                    btn_train_dreambooth_run_live.click(Shared.run_live, inputs=dreambooth_command, outputs=train_dreambooth_out_text, show_progress=False)
             with gr.Tab("Test"):
                 with gr.Group():
                     with gr.Row():
@@ -266,7 +266,7 @@ class Dreambooth(Shared):
                             scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
                             checkbox = gr.Checkbox(label="Load Model", value=True)
                             btn_test_dreambooth = gr.Button("Generate image")
-                            btn_test_dreambooth.click(super().test_dreambooth, inputs=[output_dir, checkbox, prompt, negative_prompt, steps, scale], outputs=image)
+                            btn_test_dreambooth.click(Shared.test_dreambooth, inputs=[output_dir, checkbox, prompt, negative_prompt, steps, scale], outputs=image)
             with gr.Tab("Convert"):
                 with gr.Group():
                     with gr.Box():
@@ -299,7 +299,7 @@ class Dreambooth(Shared):
                         convert_dreambooth = gr.Textbox(show_label=False, lines=3, value=convert_command)
                         convert_dreambooth_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Convert Diffusers to Original Stable Diffusion")
-                        btn_run_static.click(super().run_live, inputs=convert_dreambooth, outputs=convert_dreambooth_out_text, show_progress=False)
+                        btn_run_static.click(Shared.run_live, inputs=convert_dreambooth, outputs=convert_dreambooth_out_text, show_progress=False)
             with gr.Tab("Tools"):
                 with gr.Group():
                     with gr.Box():
@@ -314,4 +314,4 @@ class Dreambooth(Shared):
                         rm_dreambooth = gr.Textbox(show_label=False, lines=1, value=rm_dreambooth_command)
                         rm_dreambooth_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Remove Dreambooth Output Directory")
-                        btn_run_static.click(super().run_live, inputs=rm_dreambooth, outputs=rm_dreambooth_out_text, show_progress=False)
+                        btn_run_static.click(Shared.run_live, inputs=rm_dreambooth, outputs=rm_dreambooth_out_text, show_progress=False)
