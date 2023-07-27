@@ -15,7 +15,7 @@ class LoraD():
                         --output_dir="/content/trainer/diffusers/lora/output_dir" \\
                         --learning_rate=5e-6 \\
                         --max_train_steps=650 \\
-                        --instance_prompt=""⚠ INSTANCE PROMPT"" \\
+                        --instance_prompt="⚠ INSTANCE PROMPT" \\
                         --resolution=512 \\
                         --center_crop \\
                         --train_batch_size=1 \\
@@ -203,7 +203,7 @@ class LoraD():
                         --class_labels_conditioning CLASS_LABELS_CONDITIONING
                                             The optional `class_label` conditioning to pass to the
                                             unet, available values are `timesteps`.
-                        --rank RANK           The dimension of the LoRA update matrices.
+                        --rank RANK         The dimension of the LoRA update matrices.
                         ```
                         """)
                     train_lora_command = """python -u /content/trainer/diffusers/lora/train_dreambooth_lora.py \\
@@ -212,7 +212,7 @@ class LoraD():
                     --output_dir="/content/trainer/diffusers/lora/output_dir" \\
                     --learning_rate=5e-6 \\
                     --max_train_steps=650 \\
-                    --instance_prompt=""⚠ INSTANCE PROMPT"" \\
+                    --instance_prompt="⚠ INSTANCE PROMPT" \\
                     --resolution=512 \\
                     --center_crop \\
                     --train_batch_size=1 \\
