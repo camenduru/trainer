@@ -18,7 +18,8 @@ def launch():
     with trainer:
         with gr.Tab("Upload Images"):
             uploaded_files = gr.File(file_count="directory", file_types=["image"])
-            os.mkdir('/content/images')
+            if not os.path.exists('/content/images'):
+                os.mkdir('/content/images')
             for uploaded_file in uploaded_files:
                 shutil.copy(uploaded_file.name, '/content/images')
         TextToImage.tab()
