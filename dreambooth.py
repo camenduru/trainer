@@ -296,7 +296,7 @@ class Dreambooth():
                         --checkpoint_path /content/trainer/diffusers/dreambooth/output_dir/parkminyoung.safetensors \\
                         --use_safetensors \\
                         --half"""
-                        convert_dreambooth = gr.Textbox(show_label=False, lines=3, value=convert_command)
+                        convert_dreambooth = gr.Textbox(show_label=False, lines=5, value=convert_command)
                         convert_dreambooth_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Convert Diffusers to Original Stable Diffusion")
                         btn_run_static.click(Shared.run_live, inputs=convert_dreambooth, outputs=convert_dreambooth_out_text, show_progress=False)
