@@ -5,7 +5,7 @@ from gradio import strings
 from dreambooth import Dreambooth
 from text_to_image import TextToImage
 from textual_inversion import TextualInversion
-from lora_dxl import LoraDXL
+from lora_d_xl import LoraDXL
 # from lora_d import LoraD
 # from lora import Lora
 
