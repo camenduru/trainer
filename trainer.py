@@ -15,6 +15,8 @@ def launch():
     # !pip install -r /content/trainer/sd-scripts/requirements.txt
     strings.en["SHARE_LINK_MESSAGE"] = f"😊"
     with trainer:
+        with gr.Tab("Upload Images"):
+            uploaded_files = gr.File(file_count="directory", file_types=["image"])
         TextToImage.tab()
         Dreambooth.tab()
         TextualInversion.tab()
