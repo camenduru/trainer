@@ -21,7 +21,7 @@ def launch():
             if not os.path.exists('/content/images'):
                 os.mkdir('/content/images')
             # for uploaded_file in uploaded_files:
-            shutil.copy(uploaded_files.name, '/content/images')
+            shutil.copy(uploaded_files, '/content/images')
         TextToImage.tab()
         Dreambooth.tab()
         TextualInversion.tab()
