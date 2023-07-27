@@ -32,8 +32,8 @@ def launch():
         TextToImage.tab()
         Dreambooth.tab()
         TextualInversion.tab()
-        LoraDXL.tab()
         LoraD.tab()
+        LoraDXL.tab()
         # Lora.tab()
     trainer.queue().launch(debug=True, share=True, inline=False)
 
