@@ -1,11 +1,7 @@
-import os, time, torch
 import gradio as gr
-from subprocess import getoutput
-from diffusers import StableDiffusionPipeline
-from gradio import strings
-from trainer import Trainer
+from shared import Shared
 
-class TextToImage(Trainer):
+class TextToImage(Shared):
     def tab():
         with gr.Tab("Train Text to Image WebUI and Diffusers Lib"):
             with gr.Tab("Train"):

@@ -1,11 +1,7 @@
-import os, time, torch
 import gradio as gr
-from subprocess import getoutput
-from diffusers import StableDiffusionPipeline
-from gradio import strings
-from trainer import Trainer
+from shared import Shared
 
-class TextualInversion(Trainer):
+class TextualInversion(Shared):
     def tab():
         with gr.Tab("Textual Inversion for WebUI and Diffusers Lib"):
             with gr.Tab("Train"):

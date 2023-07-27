@@ -1,11 +1,7 @@
-import os, time, torch
 import gradio as gr
-from subprocess import getoutput
-from diffusers import StableDiffusionPipeline
-from gradio import strings
-from trainer import Trainer
+from shared import Shared
 
-class Lora(Trainer):
+class Lora(Shared):
     def tab():
         with gr.Tab("Train LoRA for WebUI"):
             with gr.Tab("Tag Images"):
