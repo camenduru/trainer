@@ -1,7 +1,7 @@
 import gradio as gr
 from shared import Shared
 
-class TextualInversion(Shared):
+class TextualInversion():
     def tab():
         with gr.Tab("Textual Inversion for WebUI and Diffusers Lib"):
             with gr.Tab("Train"):
@@ -182,7 +182,7 @@ class TextualInversion(Shared):
                     textual_inversion_command = gr.Textbox(show_label=False, lines=23, value=train_textual_inversion_command)
                     train_textual_inversion_out_text = gr.Textbox(show_label=False)
                     btn_train_textual_inversion_run_live = gr.Button("Train Textual Inversion")
-                    btn_train_textual_inversion_run_live.click(TextualInversion.run_live, inputs=textual_inversion_command, outputs=train_textual_inversion_out_text, show_progress=False)
+                    btn_train_textual_inversion_run_live.click(Shared.run_live, inputs=textual_inversion_command, outputs=train_textual_inversion_out_text, show_progress=False)
             with gr.Tab("Test"):
                 with gr.Group():
                     with gr.Row():
@@ -196,7 +196,7 @@ class TextualInversion(Shared):
                             scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
                             checkbox = gr.Checkbox(label="Load Model", value=True)
                             btn_test_dreambooth = gr.Button("Generate image")
-                            btn_test_dreambooth.click(TextualInversion.test_dreambooth, inputs=[output_dir, checkbox, prompt, negative_prompt, steps, scale], outputs=image)
+                            btn_test_dreambooth.click(Shared.test_dreambooth, inputs=[output_dir, checkbox, prompt, negative_prompt, steps, scale], outputs=image)
             with gr.Tab("Tools"):
                 with gr.Group():
                     with gr.Box():
@@ -211,4 +211,4 @@ class TextualInversion(Shared):
                         rm_dreambooth = gr.Textbox(show_label=False, lines=1, value=rm_dreambooth_command)
                         rm_dreambooth_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Remove Textual Inversion Output Directory")
-                        btn_run_static.click(TextualInversion.run_live, inputs=rm_dreambooth, outputs=rm_dreambooth_out_text, show_progress=False)
+                        btn_run_static.click(Shared.run_live, inputs=rm_dreambooth, outputs=rm_dreambooth_out_text, show_progress=False)

@@ -1,7 +1,7 @@
 import gradio as gr
 from shared import Shared
 
-class Lora(Shared):
+class Lora():
     def tab():
         with gr.Tab("Train LoRA for WebUI"):
             with gr.Tab("Tag Images"):
@@ -28,7 +28,7 @@ class Lora(Shared):
                     tag_lora_webui_command = gr.Textbox(show_label=False, lines=16, value=train_tag_lora_webui_command)
                     train_tag_lora_webui_out_text = gr.Textbox(show_label=False)
                     btn_train_tag_lora_webui_run_live = gr.Button("Train Lora")
-                    btn_train_tag_lora_webui_run_live.click(Lora.run_live, inputs=tag_lora_webui_command, outputs=train_tag_lora_webui_out_text, show_progress=False)
+                    btn_train_tag_lora_webui_run_live.click(Shared.run_live, inputs=tag_lora_webui_command, outputs=train_tag_lora_webui_out_text, show_progress=False)
             with gr.Tab("Merge Tags"):
                 with gr.Box():
                     with gr.Accordion("Train Lora WebUI Merge Tags Common Arguments", open=False):
@@ -47,7 +47,7 @@ class Lora(Shared):
                     merge_lora_webui_command = gr.Textbox(show_label=False, lines=16, value=train_merge_lora_webui_command)
                     train_merge_lora_webui_out_text = gr.Textbox(show_label=False)
                     btn_train_merge_lora_webui_run_live = gr.Button("Train Lora")
-                    btn_train_merge_lora_webui_run_live.click(Lora.run_live, inputs=merge_lora_webui_command, outputs=train_merge_lora_webui_out_text, show_progress=False)
+                    btn_train_merge_lora_webui_run_live.click(Shared.run_live, inputs=merge_lora_webui_command, outputs=train_merge_lora_webui_out_text, show_progress=False)
             with gr.Tab("Prepare Latents"):
                 with gr.Box():
                     with gr.Accordion("Train Lora WebUI Merge Tags Common Arguments", open=False):
@@ -80,7 +80,7 @@ class Lora(Shared):
                     prepare_lora_webui_command = gr.Textbox(show_label=False, lines=16, value=train_prepare_lora_webui_command)
                     train_prepare_lora_webui_out_text = gr.Textbox(show_label=False)
                     btn_train_prepare_lora_webui_run_live = gr.Button("Train Lora")
-                    btn_train_prepare_lora_webui_run_live.click(Lora.run_live, inputs=prepare_lora_webui_command, outputs=train_prepare_lora_webui_out_text, show_progress=False)
+                    btn_train_prepare_lora_webui_run_live.click(Shared.run_live, inputs=prepare_lora_webui_command, outputs=train_prepare_lora_webui_out_text, show_progress=False)
             with gr.Tab("Train"):
                     with gr.Box():
                         with gr.Accordion("Train Lora WebUI Common Arguments", open=False):
@@ -109,7 +109,7 @@ class Lora(Shared):
                         lora_webui_command = gr.Textbox(show_label=False, lines=16, value=train_lora_webui_command)
                         train_lora_webui_out_text = gr.Textbox(show_label=False)
                         btn_train_lora_webui_run_live = gr.Button("Train Lora")
-                        btn_train_lora_webui_run_live.click(Lora.run_live, inputs=lora_webui_command, outputs=train_lora_webui_out_text, show_progress=False)
+                        btn_train_lora_webui_run_live.click(Shared.run_live, inputs=lora_webui_command, outputs=train_lora_webui_out_text, show_progress=False)
             with gr.Tab("Tools"):
                 with gr.Group():
                     with gr.Box():
@@ -133,4 +133,4 @@ class Lora(Shared):
                         rm_lora = gr.Textbox(show_label=False, lines=16, value=rm_lora_command)
                         rm_lora_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Remove Lora Output Directory")
-                        btn_run_static.click(Lora.run_live, inputs=rm_lora, outputs=rm_lora_out_text, show_progress=False)
+                        btn_run_static.click(Shared.run_live, inputs=rm_lora, outputs=rm_lora_out_text, show_progress=False)

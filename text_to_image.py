@@ -1,7 +1,7 @@
 import gradio as gr
 from shared import Shared
 
-class TextToImage(Shared):
+class TextToImage():
     def tab():
         with gr.Tab("Train Text to Image WebUI and Diffusers Lib"):
             with gr.Tab("Train"):
@@ -198,7 +198,7 @@ class TextToImage(Shared):
                     text_to_image_command = gr.Textbox(show_label=False, lines=23, value=train_text_to_image_command)
                     train_text_to_image_out_text = gr.Textbox(show_label=False)
                     btn_train_text_to_image_run_live = gr.Button("Train Textual Inversion")
-                    btn_train_text_to_image_run_live.click(TextToImage.run_live, inputs=text_to_image_command, outputs=train_text_to_image_out_text, show_progress=False)
+                    btn_train_text_to_image_run_live.click(Shared.run_live, inputs=text_to_image_command, outputs=train_text_to_image_out_text, show_progress=False)
             with gr.Tab("Test"):
                 with gr.Group():
                     with gr.Row():
@@ -212,7 +212,7 @@ class TextToImage(Shared):
                             scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
                             checkbox = gr.Checkbox(label="Load Model", value=True)
                             btn_test_text_to_image = gr.Button("Generate image")
-                            btn_test_text_to_image.click(TextToImage.test_text_to_image, inputs=[output_dir, checkbox, prompt, negative_prompt, steps, scale], outputs=image)
+                            btn_test_text_to_image.click(Shared.test_text_to_image, inputs=[output_dir, checkbox, prompt, negative_prompt, steps, scale], outputs=image)
             with gr.Tab("Tools"):
                 with gr.Group():
                     with gr.Box():
@@ -227,4 +227,4 @@ class TextToImage(Shared):
                         rm_text_to_image = gr.Textbox(show_label=False, lines=1, value=rm_text_to_image_command)
                         rm_text_to_image_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Remove Textual Inversion Output Directory")
-                        btn_run_static.click(TextToImage.run_live, inputs=rm_text_to_image, outputs=rm_text_to_image_out_text, show_progress=False)
+                        btn_run_static.click(Shared.run_live, inputs=rm_text_to_image, outputs=rm_text_to_image_out_text, show_progress=False)

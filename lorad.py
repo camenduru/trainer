@@ -1,7 +1,7 @@
 import gradio as gr
 from shared import Shared
 
-class LoraD(Shared):
+class LoraD():
     def tab():
         with gr.Tab("Train LoRA for Diffusers Lib"):
             with gr.Tab("Train"):
@@ -207,7 +207,7 @@ class LoraD(Shared):
                     lora_command = gr.Textbox(show_label=False, lines=16, value=train_lora_command)
                     train_lora_out_text = gr.Textbox(show_label=False)
                     btn_train_lora_run_live = gr.Button("Train Lora")
-                    btn_train_lora_run_live.click(LoraD.run_live, inputs=lora_command, outputs=train_lora_out_text, show_progress=False)
+                    btn_train_lora_run_live.click(Shared.run_live, inputs=lora_command, outputs=train_lora_out_text, show_progress=False)
             with gr.Tab("Test"):
                 with gr.Group():
                     with gr.Row():
@@ -222,7 +222,7 @@ class LoraD(Shared):
                             scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1)
                             checkbox = gr.Checkbox(label="Load Model", value=True)
                             btn_test_lora = gr.Button("Generate image")
-                            btn_test_lora.click(LoraD.test_lora, inputs=[model_dir, checkbox, output_dir, prompt, negative_prompt, steps, scale], outputs=image) 
+                            btn_test_lora.click(Shared.test_lora, inputs=[model_dir, checkbox, output_dir, prompt, negative_prompt, steps, scale], outputs=image) 
             with gr.Tab("Tools"):
                 with gr.Group():
                     with gr.Box():
@@ -239,7 +239,7 @@ class LoraD(Shared):
                         cp_lora = gr.Textbox(show_label=False, lines=2, value=cp_lora_command)
                         cp_lora_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Copy Lora to Additional Network")
-                        btn_run_static.click(LoraD.run_live, inputs=cp_lora, outputs=cp_lora_out_text, show_progress=False)
+                        btn_run_static.click(Shared.run_live, inputs=cp_lora, outputs=cp_lora_out_text, show_progress=False)
                 with gr.Group():
                     with gr.Box():
                         with gr.Accordion("Remove Lora Output Directory", open=False):
@@ -253,4 +253,4 @@ class LoraD(Shared):
                         rm_lora = gr.Textbox(show_label=False, lines=1, value=rm_lora_command)
                         rm_lora_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Remove Lora Output Directory")
-                        btn_run_static.click(LoraD.run_live, inputs=rm_lora, outputs=rm_lora_out_text, show_progress=False)
+                        btn_run_static.click(Shared.run_live, inputs=rm_lora, outputs=rm_lora_out_text, show_progress=False)
