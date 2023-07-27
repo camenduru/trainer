@@ -15,7 +15,7 @@ class Dreambooth():
                         --output_dir="/content/trainer/diffusers/dreambooth/output_dir" \\
                         --learning_rate=5e-6 \\
                         --max_train_steps=650 \\
-                        --instance_prompt="instance_prompt" \\
+                        --instance_prompt="⚠ INSTANCE PROMPT" \\
                         --resolution=512 \\
                         --center_crop \\
                         --train_batch_size=1 \\
@@ -233,7 +233,7 @@ class Dreambooth():
                     --output_dir="/content/trainer/diffusers/dreambooth/output_dir" \\
                     --learning_rate=5e-6 \\
                     --max_train_steps=650 \\
-                    --instance_prompt="instance_prompt" \\
+                    --instance_prompt="⚠ INSTANCE PROMPT" \\
                     --resolution=512 \\
                     --center_crop \\
                     --train_batch_size=1 \\
