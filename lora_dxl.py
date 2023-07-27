@@ -10,7 +10,7 @@ class LoraDXL():
                         gr.Markdown(
                         """
                         ```py
-                        --pretrained_model_name_or_path="/content/model"  \\
+                        --pretrained_model_name_or_path="stabilityai/stable-diffusion-xl-base-1.0"  \\
                         --instance_data_dir="/content/images" \\
                         --output_dir="/content/trainer/diffusers/lora/output_dir" \\
                         --learning_rate=5e-6 \\
@@ -189,7 +189,7 @@ class LoraDXL():
                         ```
                         """)
                     train_lora_command = """python -u /content/trainer/diffusers/lora/train_dreambooth_lora_sdxl.py \\
-                    --pretrained_model_name_or_path="/content/model"  \\
+                    --pretrained_model_name_or_path="stabilityai/stable-diffusion-xl-base-1.0"  \\
                     --instance_data_dir="/content/images" \\
                     --output_dir="/content/trainer/diffusers/lora/output_dir" \\
                     --learning_rate=5e-6 \\
