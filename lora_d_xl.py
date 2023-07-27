@@ -235,11 +235,11 @@ class LoraDXL():
                             """
                             ```py
                             cp /content/trainer/diffusers/lora/output_dir/pytorch_lora_weights.safetensors \\
-                            /content/stable-diffusion-webui/extensions/sd-webui-additional-networks/models/lora/parkminyoung.safetensors
+                            /content/stable-diffusion-webui/extensions/sd-webui-additional-networks/models/lora/instance_prompt.safetensors
                             ```
                             """)
                         cp_lora_command = """cp /content/trainer/diffusers/lora/output_dir/pytorch_lora_weights.safetensors \\
-                        /content/stable-diffusion-webui/extensions/sd-webui-additional-networks/models/lora/parkminyoung.safetensors"""
+                        /content/stable-diffusion-webui/extensions/sd-webui-additional-networks/models/lora/instance_prompt.safetensors"""
                         cp_lora = gr.Textbox(show_label=False, lines=2, value=cp_lora_command)
                         cp_lora_out_text = gr.Textbox(show_label=False)
                         btn_run_static = gr.Button("Copy Lora to Additional Network")
