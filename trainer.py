@@ -9,7 +9,9 @@ from lora import Lora
 trainer = gr.Blocks(title="Trainer")
 
 def launch():
-    
+    # !git clone https://github.com/camenduru/sd-scripts
+    # %cd /content/trainer/sd-scripts
+    # !pip install -r /content/trainer/sd-scripts/requirements.txt
     strings.en["SHARE_LINK_MESSAGE"] = f"😊"
     with trainer:
         TextToImage.tab()
