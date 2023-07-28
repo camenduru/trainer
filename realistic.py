@@ -4,7 +4,6 @@ from gradio import strings
 from shared import Shared
 
 trainer = gr.Blocks(title="Trainer")
-global train_lora_out_text
 
 def upload_file(files):
     file_paths = [file.name for file in files]
@@ -67,6 +66,7 @@ def launch():
         with gr.Tab("Train"):
             with gr.Row():
                 with gr.Box():
+                    train_lora_out_text = gr.Textbox(show_label=False)
                     files = gr.Files(label="Upload Images", file_types=["image"], file_count="multiple")
                     files.upload(fn=upload_file, inputs=files).then(set_textbox, "Uploading Done! 🥳", train_lora_out_text, show_progress=True)
                 with gr.Box():
