@@ -1,6 +1,6 @@
 # 🚦WIP🚦
 
-## 🦒 Training Colab (GPU)
+## 🦒 Colab (GPU)
 
 | Colab Page | Function
 | --- | --- |
