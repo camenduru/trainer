@@ -24,9 +24,9 @@ train_lora_command = f"""python -u /content/trainer/diffusers/lora/train_dreambo
                             --train_text_encoder"""
 
 def upload_file(files):
-    !rm -rf /content/images
     file_paths = [file.name for file in files]
     if not os.path.exists('/content/images'):
+        os.rmdir("/content/images")
         os.mkdir('/content/images')
     for file_path in file_paths:
         shutil.copy(file_path, '/content/images/')
