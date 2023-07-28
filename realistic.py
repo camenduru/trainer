@@ -251,20 +251,33 @@ def launch():
                             btn_train_lora_run_live = gr.Button("Train Lora")
                             update_command.click(fn=update_instance_prompt, inputs=[learning_rate, max_train_steps, instance_prompt], outputs=lora_command)
                             btn_train_lora_run_live.click(Shared.run_live, inputs=lora_command, outputs=train_lora_out_text, show_progress=True).then(set_textbox, None, train_lora_out_text, show_progress=False)
-        with gr.Tab("Test"):
+        with gr.Tab("Test Lora"):
             with gr.Row(equal_height=False):
                 image = gr.Image(show_label=False)
                 with gr.Box():
                     with gr.Group():
-                        model_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/model")
-                        output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/lora")
-                        prompt = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
-                        negative_prompt = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
-                        steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=40, step=1)
-                        scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=25, value=6, step=0.1)
-                        checkbox = gr.Checkbox(label="Load Model", value=True)
+                        model_dir_lora = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/model")
+                        output_dir_lora = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/lora")
+                        prompt_lora = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
+                        negative_prompt_lora = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
+                        steps_lora = gr.Slider(label="Steps", minimum=5, maximum=50, value=40, step=1)
+                        scale_lora = gr.Slider(label="Guidance Scale", minimum=0, maximum=25, value=6, step=0.1)
+                        checkbox_lora = gr.Checkbox(label="Load Model", value=True)
                         btn_test_lora = gr.Button("Generate image")
-                        btn_test_lora.click(Shared.test_lora, inputs=[model_dir, checkbox, output_dir, prompt, negative_prompt, steps, scale], outputs=image).then(set_checkbox, None, checkbox, show_progress=False)
+                        btn_test_lora.click(Shared.test_lora, inputs=[model_dir_lora, checkbox_lora, output_dir_lora, prompt_lora, negative_prompt_lora, steps_lora, scale_lora], outputs=image).then(set_checkbox, None, checkbox_lora, show_progress=False)
+        with gr.Tab("Test Dreambooth"):
+            with gr.Row():
+                image = gr.Image(show_label=False)
+                with gr.Box():
+                    with gr.Group():
+                        output_dir_dreambooth = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/model")
+                        prompt_dreambooth = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
+                        negative_prompt_dreambooth = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
+                        steps_dreambooth = gr.Slider(label="Steps", minimum=5, maximum=50, value=40, step=1)
+                        scale_dreambooth = gr.Slider(label="Guidance Scale", minimum=0, maximum=25, value=6, step=0.1)
+                        checkbox_dreambooth = gr.Checkbox(label="Load Model", value=True)
+                        btn_test_dreambooth = gr.Button("Generate image")
+                        btn_test_dreambooth.click(Shared.test_text_to_image, inputs=[output_dir_dreambooth, checkbox_dreambooth, prompt_dreambooth, negative_prompt_dreambooth, steps_dreambooth, scale_dreambooth], outputs=image).then(set_checkbox, None, checkbox_dreambooth, show_progress=False)
     trainer.queue().launch(debug=True, share=True, inline=False)
 
 if __name__ == "__main__":
