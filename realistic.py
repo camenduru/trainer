@@ -65,7 +65,7 @@ def launch():
     with trainer:
         with gr.Tab("Train"):
             with gr.Row():
-                with gr.Group():
+                with gr.Box():
                     files = gr.Files(label="Upload Images", file_types=["image"], file_count="multiple")
                     files.upload(fn=upload_file, inputs=files)
                 with gr.Group():
