@@ -249,7 +249,7 @@ def launch():
                     update_command = gr.Button(value="Update train command")
                     btn_train_lora_run_live = gr.Button("Train Lora")
                     update_command.click(fn=update_instance_prompt, inputs=[learning_rate, max_train_steps, instance_prompt], outputs=lora_command)
-                    btn_train_lora_run_live.click(Shared.run_live, inputs=lora_command, outputs=train_lora_out_text, show_progress=True).then(set_textbox, "Training Done! 🥳", train_lora_out_text, show_progress=True)
+                    btn_train_lora_run_live.click(Shared.run_live, inputs=lora_command, outputs=train_lora_out_text, show_progress=True).then(set_textbox, inputs=["Training Done! 🥳"], train_lora_out_text, show_progress=True)
         with gr.Tab("Test"):
             with gr.Row():
                 with gr.Box():
