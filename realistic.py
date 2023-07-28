@@ -7,6 +7,7 @@ trainer = gr.Blocks(title="Trainer")
 
 def upload_file(files):
     os.system(f"rm -rf /content/images")
+    os.system(f"rm -rf /content/lora")
     file_paths = [file.name for file in files]
     if not os.path.exists('/content/images'):
         os.mkdir('/content/images')
