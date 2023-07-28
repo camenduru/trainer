@@ -4,7 +4,8 @@
 
 | Colab Page | Function
 | --- | --- |
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/camenduru/trainer/blob/main/trainer.ipynb) |  Trainer 🚦WIP🚦
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/camenduru/trainer/blob/main/realistic.ipynb) | Simple Realistic Trainer
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/camenduru/trainer/blob/main/trainer.ipynb) | Advanced Trainer
 
 ## Documentation
 https://github.com/huggingface/diffusers/tree/main/examples/dreambooth
