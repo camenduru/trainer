@@ -519,7 +519,7 @@ def launch():
                         learning_rate_dreambooth = gr.Textbox(label="Learning Rate", value=5e-6)
                         max_train_steps_dreambooth = gr.Textbox(label="Max Train steps", value=1250)
                         instance_prompt_dreambooth = gr.Textbox(label="Instance Prompt *", value="⚠ Required")
-                        dreambooth_command = gr.Textbox(show_label=False, lines=16, value=train_dreambooth_command)
+                        dreambooth_command = gr.Textbox(show_label=False, lines=25, value=train_dreambooth_command)
                         train_dreambooth_out_text = gr.Textbox(show_label=False)
                         with gr.Row():
                             update_command_dreambooth = gr.Button(value="Update train command")
