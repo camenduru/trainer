@@ -65,9 +65,8 @@ def launch():
     with trainer:
         with gr.Tab("Train"):
             with gr.Row():
-                with gr.Group():
-                    files = gr.Files(label="Upload Images", file_types=["image"], file_count="multiple")
-                    files.upload(fn=upload_file, inputs=files)
+                files = gr.Files(label="Upload Images", file_types=["image"], file_count="multiple")
+                files.upload(fn=upload_file, inputs=files)
                 with gr.Group():
                     with gr.Accordion("Train Lora All Arguments", open=False):
                         gr.Markdown(
