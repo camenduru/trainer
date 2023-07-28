@@ -246,8 +246,9 @@ def launch():
                     instance_prompt = gr.Textbox(label="Instance Prompt *", value="Required")
                     lora_command = gr.Textbox(show_label=False, lines=16, value=train_lora_command)
                     train_lora_out_text = gr.Textbox(show_label=False)
-                    update_command = gr.Button(value="Update train command")
-                    btn_train_lora_run_live = gr.Button("Train Lora")
+                    with gr.Column():
+                        update_command = gr.Button(value="Update train command")
+                        btn_train_lora_run_live = gr.Button("Train Lora")
                     update_command.click(fn=update_instance_prompt, inputs=[learning_rate, max_train_steps, instance_prompt], outputs=lora_command)
                     btn_train_lora_run_live.click(Shared.run_live, inputs=lora_command, outputs=train_lora_out_text, show_progress=True).then(set_textbox, None, train_lora_out_text, show_progress=False)
         with gr.Tab("Test"):
