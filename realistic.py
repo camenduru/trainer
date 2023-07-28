@@ -58,7 +58,7 @@ train_dreambooth_command = """python -u /content/trainer/diffusers/dreambooth/tr
                             --pretrained_model_name_or_path="/content/model"  \\
                             --instance_data_dir="/content/images" \\
                             --output_dir="/content/dreambooth" \\
-                            --learning_rate=1e-5 \\
+                            --learning_rate=5e-6 \\
                             --max_train_steps=650 \\
                             --instance_prompt="⚠ Required" \\
                             --resolution=512 \\
@@ -518,7 +518,7 @@ def launch():
                             ```
                             """)
                         with gr.Row():
-                            learning_rate_dreambooth = gr.Textbox(label="Learning Rate", value=1e-5)
+                            learning_rate_dreambooth = gr.Textbox(label="Learning Rate", value=5e-6)
                             max_train_steps_dreambooth = gr.Textbox(label="Max Train steps", value=650)
                             instance_prompt_dreambooth = gr.Textbox(label="Instance Prompt *", value="⚠ Required")
                             class_prompt_dreambooth = gr.Textbox(label="Class Prompt", value="person")

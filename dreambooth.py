@@ -13,7 +13,7 @@ class Dreambooth():
                         --pretrained_model_name_or_path="/content/model"  \\
                         --instance_data_dir="/content/images" \\
                         --output_dir="/content/trainer/diffusers/dreambooth/output_dir" \\
-                        --learning_rate=1e-5 \\
+                        --learning_rate=5e-6 \\
                         --max_train_steps=5000 \\
                         --instance_prompt="⚠ INSTANCE PROMPT" \\
                         --resolution=512 \\
@@ -231,7 +231,7 @@ class Dreambooth():
                     --pretrained_model_name_or_path="/content/model"  \\
                     --instance_data_dir="/content/images" \\
                     --output_dir="/content/trainer/diffusers/dreambooth/output_dir" \\
-                    --learning_rate=1e-5 \\
+                    --learning_rate=5e-6 \\
                     --max_train_steps=5000 \\
                     --instance_prompt="⚠ INSTANCE PROMPT" \\
                     --resolution=512 \\
