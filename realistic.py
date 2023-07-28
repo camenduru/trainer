@@ -116,12 +116,10 @@ def launch():
     strings.en["SHARE_LINK_MESSAGE"] = ""
     strings.en["BETA_INVITE"] = ""
     with trainer:
-        with gr.Tab("Tools"):
+        with gr.Tab("Train Lora"):
             with gr.Row(equal_height=False):
                 files_lora = gr.Files(label="Upload Images", file_types=["image"], file_count="multiple")
                 files_lora.upload(fn=upload_file, inputs=files_lora)
-        with gr.Tab("Train"):
-            with gr.Row(equal_height=False):
                 with gr.Box():
                     with gr.Group():
                         with gr.Accordion("Train Lora All Arguments", open=False):
@@ -307,6 +305,24 @@ def launch():
                             btn_train_lora_run_live = gr.Button("Train Lora")
                             update_command_lora.click(fn=update_lora_instance_prompt, inputs=[learning_rate_lora, max_train_steps_lora, instance_prompt_lora], outputs=lora_command)
                             btn_train_lora_run_live.click(Shared.run_live, inputs=lora_command, outputs=train_lora_out_text, show_progress=True).then(set_textbox, None, train_lora_out_text, show_progress=False)
+        with gr.Tab("Test Lora"):
+            with gr.Row(equal_height=False):
+                image_lora = gr.Image(show_label=False)
+                with gr.Box():
+                    with gr.Group():
+                        model_dir_lora = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/model")
+                        output_dir_lora = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/lora")
+                        prompt_lora = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
+                        negative_prompt_lora = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
+                        steps_lora = gr.Slider(label="Steps", minimum=5, maximum=50, value=40, step=1)
+                        scale_lora = gr.Slider(label="Guidance Scale", minimum=0, maximum=25, value=6, step=0.1)
+                        checkbox_lora = gr.Checkbox(label="Load Model", value=True)
+                        btn_test_lora = gr.Button("Generate image")
+                        btn_test_lora.click(Shared.test_lora, inputs=[model_dir_lora, checkbox_lora, output_dir_lora, prompt_lora, negative_prompt_lora, steps_lora, scale_lora], outputs=image_lora).then(set_checkbox, None, checkbox_lora, show_progress=False)
+        with gr.Tab("Train Dreambooth"):
+            with gr.Row(equal_height=False):
+                files_dreambooth = gr.Files(label="Upload Images", file_types=["image"], file_count="multiple")
+                files_dreambooth.upload(fn=upload_file, inputs=files_dreambooth)
                 with gr.Box():
                     with gr.Group():
                         with gr.Accordion("Train Dreambooth All Arguments", open=False):
@@ -513,20 +529,6 @@ def launch():
                             btn_train_dreambooth_run_live = gr.Button("Train Dreambooth")
                             update_command_dreambooth.click(fn=update_dreambooth_instance_prompt, inputs=[learning_rate_dreambooth, max_train_steps_dreambooth, instance_prompt_dreambooth, class_prompt_dreambooth], outputs=dreambooth_command)
                             btn_train_dreambooth_run_live.click(Shared.run_live, inputs=dreambooth_command, outputs=train_dreambooth_out_text, show_progress=True).then(set_textbox, None, train_dreambooth_out_text, show_progress=False)
-        with gr.Tab("Test Lora"):
-            with gr.Row(equal_height=False):
-                image_lora = gr.Image(show_label=False)
-                with gr.Box():
-                    with gr.Group():
-                        model_dir_lora = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/model")
-                        output_dir_lora = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/lora")
-                        prompt_lora = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
-                        negative_prompt_lora = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
-                        steps_lora = gr.Slider(label="Steps", minimum=5, maximum=50, value=40, step=1)
-                        scale_lora = gr.Slider(label="Guidance Scale", minimum=0, maximum=25, value=6, step=0.1)
-                        checkbox_lora = gr.Checkbox(label="Load Model", value=True)
-                        btn_test_lora = gr.Button("Generate image")
-                        btn_test_lora.click(Shared.test_lora, inputs=[model_dir_lora, checkbox_lora, output_dir_lora, prompt_lora, negative_prompt_lora, steps_lora, scale_lora], outputs=image_lora).then(set_checkbox, None, checkbox_lora, show_progress=False)
         with gr.Tab("Test Dreambooth"):
             with gr.Row(equal_height=False):
                 image_dreambooth = gr.Image(show_label=False)
