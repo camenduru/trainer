@@ -56,7 +56,7 @@ def launch():
     strings.en["SHARE_LINK_MESSAGE"] = ""
     strings.en["BETA_INVITE"] = ""
     with trainer:
-        with gr.Group():
+        with gr.Tab("Train"):
           with gr.Row():
               with gr.Box():
                 files = gr.Files(label="Upload Images", file_types=["image"], file_count="multiple")
@@ -71,7 +71,7 @@ def launch():
                   btn_train_lora_run_live = gr.Button("Train Lora")
                   update_command.click(fn=update_instance_prompt, inputs=[learning_rate, max_train_steps, instance_prompt], outputs=lora_command)
                   btn_train_lora_run_live.click(Shared.run_live, inputs=lora_command, outputs=train_lora_out_text, show_progress=False)
-        with gr.Group():
+        with gr.Tab("Test"):
           with gr.Row():
               with gr.Box():
                   image = gr.Image(show_label=False)
