@@ -54,10 +54,10 @@ def update_instance_prompt(learning_rate, max_train_steps, instance_prompt):
     return train_lora_command
 
 def set_checkbox(msg):
-    return gr.Checkbox.update(value=msg)
+    return gr.Checkbox.update(value=False)
 
 def set_textbox(msg):
-    return gr.Textbox.update(value=msg)
+    return gr.Textbox.update(value="Training Done! 🥳")
 
 def launch():
     strings.en["SHARE_LINK_MESSAGE"] = ""
@@ -249,7 +249,7 @@ def launch():
                     update_command = gr.Button(value="Update train command")
                     btn_train_lora_run_live = gr.Button("Train Lora")
                     update_command.click(fn=update_instance_prompt, inputs=[learning_rate, max_train_steps, instance_prompt], outputs=lora_command)
-                    btn_train_lora_run_live.click(Shared.run_live, inputs=lora_command, outputs=train_lora_out_text, show_progress=True).then(set_textbox, inputs=["Training Done! 🥳"], train_lora_out_text, show_progress=True)
+                    btn_train_lora_run_live.click(Shared.run_live, inputs=lora_command, outputs=train_lora_out_text, show_progress=True).then(set_textbox, None, train_lora_out_text, show_progress=True)
         with gr.Tab("Test"):
             with gr.Row():
                 with gr.Box():
@@ -263,7 +263,7 @@ def launch():
                     scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=6, step=0.1)
                     checkbox = gr.Checkbox(label="Load Model", value=True)
                     btn_test_lora = gr.Button("Generate image")
-                    btn_test_lora.click(Shared.test_lora, inputs=[model_dir, checkbox, output_dir, prompt, negative_prompt, steps, scale], outputs=image).then(set_checkbox, False, checkbox, show_progress=False)
+                    btn_test_lora.click(Shared.test_lora, inputs=[model_dir, checkbox, output_dir, prompt, negative_prompt, steps, scale], outputs=image).then(set_checkbox, None, checkbox, show_progress=False)
     trainer.queue().launch(debug=True, share=True, inline=False)
 
 if __name__ == "__main__":
