@@ -8,6 +8,7 @@ trainer = gr.Blocks(title="Trainer")
 def upload_file(files):
     os.system(f"rm -rf /content/images")
     os.system(f"rm -rf /content/lora")
+    os.system(f"rm -rf /content/dreambooth")
     file_paths = [file.name for file in files]
     if not os.path.exists('/content/images'):
         os.mkdir('/content/images')
@@ -56,7 +57,7 @@ def update_lora_instance_prompt(learning_rate, max_train_steps, instance_prompt)
 train_dreambooth_command = """python -u /content/trainer/diffusers/dreambooth/train_dreambooth.py \\
                             --pretrained_model_name_or_path="/content/model"  \\
                             --instance_data_dir="/content/images" \\
-                            --output_dir="/content/trainer/diffusers/dreambooth/output_dir" \\
+                            --output_dir="/content/dreambooth" \\
                             --learning_rate=5e-6 \\
                             --max_train_steps=1250 \\
                             --instance_prompt="⚠ Required" \\
@@ -70,7 +71,7 @@ train_dreambooth_command = """python -u /content/trainer/diffusers/dreambooth/tr
                             --enable_xformers_memory_efficient_attention \\
                             --use_8bit_adam \\
                             --with_prior_preservation \\
-                            --class_data_dir="/content/trainer/diffusers/dreambooth/class_data_dir" \\
+                            --class_data_dir="/content/class_data_dir" \\
                             --prior_loss_weight=1.0 \\
                             --sample_batch_size=2 \\
                             --class_prompt="person" \\
@@ -82,7 +83,7 @@ def update_dreambooth_instance_prompt(learning_rate, max_train_steps, instance_p
     train_dreambooth_command = f"""python -u /content/trainer/diffusers/dreambooth/train_dreambooth.py \\
                             --pretrained_model_name_or_path="/content/model"  \\
                             --instance_data_dir="/content/images" \\
-                            --output_dir="/content/trainer/diffusers/dreambooth/output_dir" \\
+                            --output_dir="/content/dreambooth" \\
                             --learning_rate={learning_rate} \\
                             --max_train_steps={max_train_steps} \\
                             --instance_prompt="{instance_prompt}" \\
@@ -96,7 +97,7 @@ def update_dreambooth_instance_prompt(learning_rate, max_train_steps, instance_p
                             --enable_xformers_memory_efficient_attention \\
                             --use_8bit_adam \\
                             --with_prior_preservation \\
-                            --class_data_dir="/content/trainer/diffusers/dreambooth/class_data_dir" \\
+                            --class_data_dir="/content/class_data_dir" \\
                             --prior_loss_weight=1.0 \\
                             --sample_batch_size=2 \\
                             --class_prompt="person" \\
@@ -295,7 +296,7 @@ def launch():
                             """)
                         learning_rate_lora = gr.Textbox(label="Learning Rate", value=5e-6)
                         max_train_steps_lora = gr.Textbox(label="Max Train steps", value=1250)
-                        instance_prompt_lora = gr.Textbox(label="Instance Prompt *", value="Required")
+                        instance_prompt_lora = gr.Textbox(label="Instance Prompt *", value="⚠ Required")
                         lora_command = gr.Textbox(show_label=False, lines=16, value=train_lora_command)
                         train_lora_out_text = gr.Textbox(show_label=False)
                         with gr.Row():
@@ -517,7 +518,7 @@ def launch():
                             """)
                         learning_rate_dreambooth = gr.Textbox(label="Learning Rate", value=5e-6)
                         max_train_steps_dreambooth = gr.Textbox(label="Max Train steps", value=1250)
-                        instance_prompt_dreambooth = gr.Textbox(label="Instance Prompt *", value="Required")
+                        instance_prompt_dreambooth = gr.Textbox(label="Instance Prompt *", value="⚠ Required")
                         dreambooth_command = gr.Textbox(show_label=False, lines=16, value=train_dreambooth_command)
                         train_dreambooth_out_text = gr.Textbox(show_label=False)
                         with gr.Row():
