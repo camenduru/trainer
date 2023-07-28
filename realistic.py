@@ -53,10 +53,10 @@ def update_instance_prompt(learning_rate, max_train_steps, instance_prompt):
                             --train_text_encoder"""
     return train_lora_command
 
-def set_checkbox(msg):
+def set_checkbox():
     return gr.Checkbox.update(value=False)
 
-def set_textbox(msg):
+def set_textbox():
     return gr.Textbox.update(value="Training Done! 🥳")
 
 def launch():
