@@ -4,7 +4,7 @@ from gradio import strings
 from shared import Shared
 
 trainer = gr.Blocks(title="Trainer")
-train_lora_out_text = gr.Textbox(show_label=False)
+global train_lora_out_text
 
 def upload_file(files):
     file_paths = [file.name for file in files]
