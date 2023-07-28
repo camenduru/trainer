@@ -13,8 +13,8 @@ class LoraDXL():
                         --pretrained_model_name_or_path="stabilityai/stable-diffusion-xl-base-1.0"  \\
                         --instance_data_dir="/content/images" \\
                         --output_dir="/content/trainer/diffusers/lora/output_dir" \\
-                        --learning_rate=5e-6 \\
-                        --max_train_steps=1250 \\
+                        --learning_rate=1e-5 \\
+                        --max_train_steps=5000 \\
                         --instance_prompt="⚠ INSTANCE PROMPT" \\
                         --resolution=512 \\
                         --center_crop \\
@@ -197,8 +197,8 @@ class LoraDXL():
                     --pretrained_model_name_or_path="stabilityai/stable-diffusion-xl-base-1.0"  \\
                     --instance_data_dir="/content/images" \\
                     --output_dir="/content/trainer/diffusers/lora/output_dir" \\
-                    --learning_rate=5e-6 \\
-                    --max_train_steps=1250 \\
+                    --learning_rate=1e-5 \\
+                    --max_train_steps=5000 \\
                     --instance_prompt="⚠ INSTANCE PROMPT" \\
                     --resolution=1024 \\
                     --center_crop \\

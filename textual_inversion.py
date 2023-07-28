@@ -13,8 +13,8 @@ class TextualInversion():
                         --pretrained_model_name_or_path="/content/model"  \\
                         --instance_data_dir="/content/images" \\
                         --output_dir="/content/trainer/diffusers/dreambooth/output_dir" \\
-                        --learning_rate=5e-6 \\
-                        --max_train_steps=1250 \\
+                        --learning_rate=1e-5 \\
+                        --max_train_steps=5000 \\
                         --instance_prompt="⚠ INSTANCE PROMPT" \\
                         --resolution=512 \\
                         --center_crop \\
@@ -175,7 +175,7 @@ class TextualInversion():
                     --output_dir="/content/trainer/diffusers/textual_inversion/output_dir" \\
                     --placeholder_token="<instance_prompt>" \\
                     --initializer_token="⚠ INSTANCE PROMPT" \\
-                    --learning_rate=5e-6 \\
+                    --learning_rate=1e-5 \\
                     --scale_lr \\
                     --lr_scheduler="constant" \\
                     --lr_warmup_steps=0 \\

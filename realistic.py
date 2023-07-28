@@ -20,8 +20,8 @@ train_lora_command = f"""python -u /content/trainer/diffusers/lora/train_dreambo
                             --pretrained_model_name_or_path="/content/model"  \\
                             --instance_data_dir="/content/images" \\
                             --output_dir="/content/lora" \\
-                            --learning_rate=5e-6 \\
-                            --max_train_steps=1250 \\
+                            --learning_rate=1e-5 \\
+                            --max_train_steps=5000 \\
                             --instance_prompt="⚠ Required" \\
                             --resolution=512 \\
                             --center_crop \\
@@ -58,7 +58,7 @@ train_dreambooth_command = """python -u /content/trainer/diffusers/dreambooth/tr
                             --pretrained_model_name_or_path="/content/model"  \\
                             --instance_data_dir="/content/images" \\
                             --output_dir="/content/dreambooth" \\
-                            --learning_rate=5e-6 \\
+                            --learning_rate=1e-5 \\
                             --max_train_steps=650 \\
                             --instance_prompt="⚠ Required" \\
                             --resolution=512 \\
@@ -295,8 +295,8 @@ def launch():
                             ```
                             """)
                         with gr.Row():
-                            learning_rate_lora = gr.Textbox(label="Learning Rate", value=5e-6)
-                            max_train_steps_lora = gr.Textbox(label="Max Train steps", value=1250)
+                            learning_rate_lora = gr.Textbox(label="Learning Rate", value=1e-5)
+                            max_train_steps_lora = gr.Textbox(label="Max Train steps", value=5000)
                             instance_prompt_lora = gr.Textbox(label="Instance Prompt *", value="⚠ Required")
                         lora_command = gr.Textbox(show_label=False, lines=16, value=train_lora_command)
                         train_lora_out_text = gr.Textbox(show_label=False)
@@ -518,7 +518,7 @@ def launch():
                             ```
                             """)
                         with gr.Row():
-                            learning_rate_dreambooth = gr.Textbox(label="Learning Rate", value=5e-6)
+                            learning_rate_dreambooth = gr.Textbox(label="Learning Rate", value=1e-5)
                             max_train_steps_dreambooth = gr.Textbox(label="Max Train steps", value=650)
                             instance_prompt_dreambooth = gr.Textbox(label="Instance Prompt *", value="⚠ Required")
                             class_prompt_dreambooth = gr.Textbox(label="Class Prompt", value="person")
