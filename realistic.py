@@ -56,8 +56,8 @@ def update_instance_prompt(learning_rate, max_train_steps, instance_prompt):
 def set_checkbox():
     return gr.Checkbox.update(value=False)
 
-def set_textbox():
-    return gr.Textbox.update(value="Done! 🥳")
+def set_textbox(msg):
+    return gr.Textbox.update(value=msg)
 
 def launch():
     strings.en["SHARE_LINK_MESSAGE"] = ""
@@ -67,7 +67,7 @@ def launch():
             with gr.Row():
                 with gr.Box():
                     files = gr.Files(label="Upload Images", file_types=["image"], file_count="multiple")
-                    files.upload(fn=upload_file, inputs=files)
+                    files.upload(fn=upload_file, inputs=files).then(set_textbox, "Training Done! 🥳", train_lora_out_text, show_progress=True)
                 with gr.Box():
                     with gr.Accordion("Train Lora All Arguments", open=False):
                         gr.Markdown(
@@ -249,7 +249,7 @@ def launch():
                     update_command = gr.Button(value="Update train command")
                     btn_train_lora_run_live = gr.Button("Train Lora")
                     update_command.click(fn=update_instance_prompt, inputs=[learning_rate, max_train_steps, instance_prompt], outputs=lora_command)
-                    btn_train_lora_run_live.click(Shared.run_live, inputs=lora_command, outputs=train_lora_out_text, show_progress=False).then(set_textbox, None, train_lora_out_text, show_progress=False)
+                    btn_train_lora_run_live.click(Shared.run_live, inputs=lora_command, outputs=train_lora_out_text, show_progress=True).then(set_textbox, "Training Done! 🥳", train_lora_out_text, show_progress=True)
         with gr.Tab("Test"):
             with gr.Row():
                 with gr.Box():
