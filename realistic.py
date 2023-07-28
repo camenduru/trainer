@@ -270,7 +270,7 @@ def launch():
                 image = gr.Image(show_label=False)
                 with gr.Box():
                     with gr.Group():
-                        output_dir_dreambooth = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/model")
+                        output_dir_dreambooth = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/dreambooth")
                         prompt_dreambooth = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
                         negative_prompt_dreambooth = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
                         steps_dreambooth = gr.Slider(label="Steps", minimum=5, maximum=50, value=40, step=1)
