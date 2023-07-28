@@ -261,7 +261,7 @@ def launch():
                         prompt = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
                         negative_prompt = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
                         steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=50, step=1)
-                        scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=6, step=0.1)
+                        scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=25, value=6, step=0.1)
                         checkbox = gr.Checkbox(label="Load Model", value=True)
                         btn_test_lora = gr.Button("Generate image")
                         btn_test_lora.click(Shared.test_lora, inputs=[model_dir, checkbox, output_dir, prompt, negative_prompt, steps, scale], outputs=image).then(set_checkbox, None, checkbox, show_progress=False)
