@@ -12,7 +12,7 @@ def upload_file(files):
         for file_path in file_paths:
             shutil.copy(file_path, '/content/images/')
     else:
-        os.rmdir("/content/images")
+        os.rmtree("/content/images")
     return file_paths
 
 train_lora_command = f"""python -u /content/trainer/diffusers/lora/train_dreambooth_lora.py \\
