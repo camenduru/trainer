@@ -23,7 +23,8 @@ def launch():
     # !git clone https://github.com/camenduru/sd-scripts
     # %cd /content/trainer/sd-scripts
     # !pip install -r /content/trainer/sd-scripts/requirements.txt
-    strings.en["SHARE_LINK_MESSAGE"] = f"😊"
+    strings.en["SHARE_LINK_MESSAGE"] = ""
+    strings.en["BETA_INVITE"] = ""
     with trainer:
         with gr.Tab("Upload Images"):
             file_output = gr.File()
