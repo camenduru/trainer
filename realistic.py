@@ -5,6 +5,15 @@ from shared import Shared
 
 trainer = gr.Blocks(title="Trainer")
 
+def upload_file(files):
+    file_paths = [file.name for file in files]
+    if not os.path.exists('/content/images'):
+        os.rmdir("/content/images")
+        os.mkdir('/content/images')
+    for file_path in file_paths:
+        shutil.copy(file_path, '/content/images/')
+    return file_paths
+
 train_lora_command = f"""python -u /content/trainer/diffusers/lora/train_dreambooth_lora.py \\
                             --pretrained_model_name_or_path="/content/model"  \\
                             --instance_data_dir="/content/images" \\
@@ -22,15 +31,6 @@ train_lora_command = f"""python -u /content/trainer/diffusers/lora/train_dreambo
                             --enable_xformers_memory_efficient_attention \\
                             --use_8bit_adam \\
                             --train_text_encoder"""
-
-def upload_file(files):
-    file_paths = [file.name for file in files]
-    if not os.path.exists('/content/images'):
-        os.rmdir("/content/images")
-        os.mkdir('/content/images')
-    for file_path in file_paths:
-        shutil.copy(file_path, '/content/images/')
-    return file_paths
 
 def update_instance_prompt(learning_rate, max_train_steps, instance_prompt):
     train_lora_command = f"""python -u /content/trainer/diffusers/lora/train_dreambooth_lora.py \\
