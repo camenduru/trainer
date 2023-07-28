@@ -266,7 +266,7 @@ def launch():
                         btn_test_lora = gr.Button("Generate image")
                         btn_test_lora.click(Shared.test_lora, inputs=[model_dir_lora, checkbox_lora, output_dir_lora, prompt_lora, negative_prompt_lora, steps_lora, scale_lora], outputs=image).then(set_checkbox, None, checkbox_lora, show_progress=False)
         with gr.Tab("Test Dreambooth"):
-            with gr.Row():
+            with gr.Row(equal_height=False):
                 image = gr.Image(show_label=False)
                 with gr.Box():
                     with gr.Group():
