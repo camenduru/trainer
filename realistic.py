@@ -7,8 +7,8 @@ trainer = gr.Blocks(title="Trainer")
 
 def upload_file(files):
     file_paths = [file.name for file in files]
+    os.rmdir("/content/images")
     if not os.path.exists('/content/images'):
-        os.rmdir("/content/images")
         os.mkdir('/content/images')
     for file_path in file_paths:
         shutil.copy(file_path, '/content/images/')
