@@ -63,7 +63,7 @@ def launch():
     strings.en["BETA_INVITE"] = ""
     with trainer:
         with gr.Tab("Train"):
-            with gr.Row():
+            with gr.Row().style(equal_height=False):
                 files = gr.Files(label="Upload Images", file_types=["image"], file_count="multiple")
                 files.upload(fn=upload_file, inputs=files)
                 with gr.Box():
