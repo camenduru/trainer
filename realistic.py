@@ -79,7 +79,7 @@ train_dreambooth_command = """python -u /content/trainer/diffusers/dreambooth/tr
                             --num_class_images=12 \\
                             --offset_noise"""
 
-def update_dreambooth_instance_prompt(learning_rate, max_train_steps, instance_prompt):
+def update_dreambooth_instance_prompt(learning_rate, max_train_steps, instance_prompt, class_prompt):
     train_dreambooth_command = f"""python -u /content/trainer/diffusers/dreambooth/train_dreambooth.py \\
                             --pretrained_model_name_or_path="/content/model"  \\
                             --instance_data_dir="/content/images" \\
@@ -100,7 +100,7 @@ def update_dreambooth_instance_prompt(learning_rate, max_train_steps, instance_p
                             --class_data_dir="/content/class_data_dir" \\
                             --prior_loss_weight=1.0 \\
                             --sample_batch_size=2 \\
-                            --class_prompt="person" \\
+                            --class_prompt="{class_prompt}" \\
                             --seed=69 \\
                             --num_class_images=12 \\
                             --offset_noise"""
@@ -521,12 +521,13 @@ def launch():
                             learning_rate_dreambooth = gr.Textbox(label="Learning Rate", value=5e-6)
                             max_train_steps_dreambooth = gr.Textbox(label="Max Train steps", value=1250)
                             instance_prompt_dreambooth = gr.Textbox(label="Instance Prompt *", value="⚠ Required")
+                            class_prompt_dreambooth = gr.Textbox(label="Class Prompt", value="person")
                         dreambooth_command = gr.Textbox(show_label=False, lines=24, value=train_dreambooth_command)
                         train_dreambooth_out_text = gr.Textbox(show_label=False)
                         with gr.Row():
                             update_command_dreambooth = gr.Button(value="Update train command")
                             btn_train_dreambooth_run_live = gr.Button("Train Dreambooth")
-                            update_command_dreambooth.click(fn=update_dreambooth_instance_prompt, inputs=[learning_rate_dreambooth, max_train_steps_dreambooth, instance_prompt_dreambooth], outputs=dreambooth_command)
+                            update_command_dreambooth.click(fn=update_dreambooth_instance_prompt, inputs=[learning_rate_dreambooth, max_train_steps_dreambooth, instance_prompt_dreambooth, class_prompt_dreambooth], outputs=dreambooth_command)
                             btn_train_dreambooth_run_live.click(Shared.run_live, inputs=dreambooth_command, outputs=train_dreambooth_out_text, show_progress=True).then(set_textbox, None, train_dreambooth_out_text, show_progress=False)
         with gr.Tab("Test Dreambooth"):
             with gr.Row(equal_height=False):
