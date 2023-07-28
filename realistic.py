@@ -294,9 +294,10 @@ def launch():
                             --rank RANK         The dimension of the LoRA update matrices.
                             ```
                             """)
-                        learning_rate_lora = gr.Textbox(label="Learning Rate", value=5e-6)
-                        max_train_steps_lora = gr.Textbox(label="Max Train steps", value=1250)
-                        instance_prompt_lora = gr.Textbox(label="Instance Prompt *", value="⚠ Required")
+                        with gr.Row():
+                            learning_rate_lora = gr.Textbox(label="Learning Rate", value=5e-6)
+                            max_train_steps_lora = gr.Textbox(label="Max Train steps", value=1250)
+                            instance_prompt_lora = gr.Textbox(label="Instance Prompt *", value="⚠ Required")
                         lora_command = gr.Textbox(show_label=False, lines=16, value=train_lora_command)
                         train_lora_out_text = gr.Textbox(show_label=False)
                         with gr.Row():
@@ -516,9 +517,10 @@ def launch():
                                                 unet, available values are `timesteps`.
                             ```
                             """)
-                        learning_rate_dreambooth = gr.Textbox(label="Learning Rate", value=5e-6)
-                        max_train_steps_dreambooth = gr.Textbox(label="Max Train steps", value=1250)
-                        instance_prompt_dreambooth = gr.Textbox(label="Instance Prompt *", value="⚠ Required")
+                        with gr.Row():
+                            learning_rate_dreambooth = gr.Textbox(label="Learning Rate", value=5e-6)
+                            max_train_steps_dreambooth = gr.Textbox(label="Max Train steps", value=1250)
+                            instance_prompt_dreambooth = gr.Textbox(label="Instance Prompt *", value="⚠ Required")
                         dreambooth_command = gr.Textbox(show_label=False, lines=24, value=train_dreambooth_command)
                         train_dreambooth_out_text = gr.Textbox(show_label=False)
                         with gr.Row():
