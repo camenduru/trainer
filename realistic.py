@@ -4,6 +4,7 @@ from gradio import strings
 from shared import Shared
 
 trainer = gr.Blocks(title="Trainer")
+train_lora_out_text = gr.Textbox(show_label=False)
 
 def upload_file(files):
     file_paths = [file.name for file in files]
@@ -245,7 +246,7 @@ def launch():
                     max_train_steps = gr.Textbox(label="Max Train steps", value=1250)
                     instance_prompt = gr.Textbox(label="Instance Prompt *", value="Required")
                     lora_command = gr.Textbox(show_label=False, lines=16, value=train_lora_command)
-                    train_lora_out_text = gr.Textbox(show_label=False)
+                    train_lora_out_text
                     update_command = gr.Button(value="Update train command")
                     btn_train_lora_run_live = gr.Button("Train Lora")
                     update_command.click(fn=update_instance_prompt, inputs=[learning_rate, max_train_steps, instance_prompt], outputs=lora_command)
