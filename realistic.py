@@ -119,7 +119,7 @@ def launch():
         with gr.Tab("Train Lora"):
             with gr.Row(equal_height=False):
                 files_lora = gr.Files(label="Upload Images", file_types=["image"], file_count="multiple")
-                files.upload(fn=upload_file, inputs=files_lora)
+                files_lora.upload(fn=upload_file, inputs=files_lora)
                 with gr.Box():
                     with gr.Group():
                         with gr.Accordion("Train Lora All Arguments", open=False):
@@ -321,7 +321,7 @@ def launch():
         with gr.Tab("Train Dreambooth"):
             with gr.Row(equal_height=False):
                 files_dreambooth = gr.Files(label="Upload Images", file_types=["image"], file_count="multiple")
-                files.upload(fn=upload_file, inputs=files_dreambooth)
+                files_dreambooth.upload(fn=upload_file, inputs=files_dreambooth)
                 with gr.Box():
                     with gr.Group():
                         with gr.Accordion("Train Dreambooth All Arguments", open=False):
