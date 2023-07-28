@@ -252,19 +252,19 @@ def launch():
                             update_command.click(fn=update_instance_prompt, inputs=[learning_rate, max_train_steps, instance_prompt], outputs=lora_command)
                             btn_train_lora_run_live.click(Shared.run_live, inputs=lora_command, outputs=train_lora_out_text, show_progress=True).then(set_textbox, None, train_lora_out_text, show_progress=False)
         with gr.Tab("Test"):
-            with gr.Row():
+            with gr.Row(equal_height=False):
+                image = gr.Image(show_label=False)
                 with gr.Box():
-                    image = gr.Image(show_label=False)
-                with gr.Box():
-                    model_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/model")
-                    output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/lora")
-                    prompt = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
-                    negative_prompt = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
-                    steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=50, step=1)
-                    scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=6, step=0.1)
-                    checkbox = gr.Checkbox(label="Load Model", value=True)
-                    btn_test_lora = gr.Button("Generate image")
-                    btn_test_lora.click(Shared.test_lora, inputs=[model_dir, checkbox, output_dir, prompt, negative_prompt, steps, scale], outputs=image).then(set_checkbox, None, checkbox, show_progress=False)
+                    with gr.Group():
+                        model_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/model")
+                        output_dir = gr.Textbox(label="Enter your output dir", show_label=False, max_lines=1, value="/content/lora")
+                        prompt = gr.Textbox(label="prompt", show_label=False, max_lines=1, placeholder="Enter your prompt")
+                        negative_prompt = gr.Textbox(label="negative prompt", show_label=False, max_lines=1, placeholder="Enter your negative prompt")
+                        steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=50, step=1)
+                        scale = gr.Slider(label="Guidance Scale", minimum=0, maximum=50, value=6, step=0.1)
+                        checkbox = gr.Checkbox(label="Load Model", value=True)
+                        btn_test_lora = gr.Button("Generate image")
+                        btn_test_lora.click(Shared.test_lora, inputs=[model_dir, checkbox, output_dir, prompt, negative_prompt, steps, scale], outputs=image).then(set_checkbox, None, checkbox, show_progress=False)
     trainer.queue().launch(debug=True, share=True, inline=False)
 
 if __name__ == "__main__":
