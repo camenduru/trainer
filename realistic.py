@@ -545,4 +545,4 @@ def launch():
     trainer.queue().launch(debug=True, share=True, inline=False)
 
 if __name__ == "__main__":
-    launch()
+    launch(server_name='0.0.0.0')
