@@ -542,7 +542,7 @@ def launch():
                         checkbox_dreambooth = gr.Checkbox(label="Load Model", value=True)
                         btn_test_dreambooth = gr.Button("Generate image")
                         btn_test_dreambooth.click(Shared.test_text_to_image, inputs=[output_dir_dreambooth, checkbox_dreambooth, prompt_dreambooth, negative_prompt_dreambooth, steps_dreambooth, scale_dreambooth], outputs=image_dreambooth).then(set_checkbox, None, checkbox_dreambooth, show_progress=False)
-    trainer.queue().launch(debug=True, share=True, inline=False)
+    trainer.queue().launch(debug=True, share=True, inline=False, server_name='0.0.0.0')
 
 if __name__ == "__main__":
-    launch(server_name='0.0.0.0')
+    launch()
